@@ -1,0 +1,85 @@
+OpenROAD unknown
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd.tlef, created 13 layers, 25 vias
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd_merged.lef, created 441 library cells
+[INFO ODB-0227] LEF file: /pdk/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef, created 1 library cells
+[WARNING IFP-0028] Core area lower left (200.000, 200.000) snapped to (200.100, 201.280).
+[INFO IFP-0001] Added 1433 rows of 9347 site unithd.
+[INFO IFP-0100] Die BBox:  (  0.000  0.000 ) ( 4700.000 4300.000 ) um
+[INFO IFP-0101] Core BBox: ( 200.100 201.280 ) ( 4499.720 4099.040 ) um
+[INFO IFP-0102] Core area:                     16758886.851 um^2
+[INFO IFP-0103] Total instances area:           9452011.258 um^2
+[INFO IFP-0104] Effective utilization:                0.564
+[INFO IFP-0105] Number of instances:                  44001
+
+========== SRAM MACRO PLACEMENT ==========
+[INFO MPL-0035] Macro sram_macro_0 placed. Bounding box (250.000um, 250.000um), (933.100um, 666.540um). Orientation R0
+Bank 0 placed at (250.0, 250.0): sram_macro_0
+[INFO MPL-0035] Macro sram_macro_1 placed. Bounding box (973.100um, 250.000um), (1656.200um, 666.540um). Orientation R0
+Bank 1 placed at (973.1, 250.0): sram_macro_1
+[INFO MPL-0035] Macro sram_macro_2 placed. Bounding box (1696.200um, 250.000um), (2379.300um, 666.540um). Orientation R0
+Bank 2 placed at (1696.2, 250.0): sram_macro_2
+[INFO MPL-0035] Macro sram_macro_3 placed. Bounding box (2419.300um, 250.000um), (3102.400um, 666.540um). Orientation R0
+Bank 3 placed at (2419.3, 250.0): sram_macro_3
+[INFO MPL-0035] Macro sram_macro_4 placed. Bounding box (250.000um, 706.540um), (933.100um, 1123.080um). Orientation R0
+Bank 4 placed at (250.0, 706.54): sram_macro_4
+[INFO MPL-0035] Macro sram_macro_5 placed. Bounding box (973.100um, 706.540um), (1656.200um, 1123.080um). Orientation R0
+Bank 5 placed at (973.1, 706.54): sram_macro_5
+[INFO MPL-0035] Macro sram_macro_6 placed. Bounding box (1696.200um, 706.540um), (2379.300um, 1123.080um). Orientation R0
+Bank 6 placed at (1696.2, 706.54): sram_macro_6
+[INFO MPL-0035] Macro sram_macro_7 placed. Bounding box (2419.300um, 706.540um), (3102.400um, 1123.080um). Orientation R0
+Bank 7 placed at (2419.3, 706.54): sram_macro_7
+[INFO MPL-0035] Macro sram_macro_8 placed. Bounding box (250.000um, 1163.080um), (933.100um, 1579.620um). Orientation R0
+Bank 8 placed at (250.0, 1163.08): sram_macro_8
+[INFO MPL-0035] Macro sram_macro_9 placed. Bounding box (973.100um, 1163.080um), (1656.200um, 1579.620um). Orientation R0
+Bank 9 placed at (973.1, 1163.08): sram_macro_9
+[INFO MPL-0035] Macro sram_macro_10 placed. Bounding box (1696.200um, 1163.080um), (2379.300um, 1579.620um). Orientation R0
+Bank 10 placed at (1696.2, 1163.08): sram_macro_10
+[INFO MPL-0035] Macro sram_macro_11 placed. Bounding box (2419.300um, 1163.080um), (3102.400um, 1579.620um). Orientation R0
+Bank 11 placed at (2419.3, 1163.08): sram_macro_11
+[INFO MPL-0035] Macro sram_macro_12 placed. Bounding box (250.000um, 1619.620um), (933.100um, 2036.160um). Orientation R0
+Bank 12 placed at (250.0, 1619.6200000000001): sram_macro_12
+[INFO MPL-0035] Macro sram_macro_13 placed. Bounding box (973.100um, 1619.620um), (1656.200um, 2036.160um). Orientation R0
+Bank 13 placed at (973.1, 1619.6200000000001): sram_macro_13
+[INFO MPL-0035] Macro sram_macro_14 placed. Bounding box (1696.200um, 1619.620um), (2379.300um, 2036.160um). Orientation R0
+Bank 14 placed at (1696.2, 1619.6200000000001): sram_macro_14
+[INFO MPL-0035] Macro sram_macro_15 placed. Bounding box (2419.300um, 1619.620um), (3102.400um, 2036.160um). Orientation R0
+Bank 15 placed at (2419.3, 1619.6200000000001): sram_macro_15
+[INFO MPL-0035] Macro sram_macro_16 placed. Bounding box (250.000um, 2076.160um), (933.100um, 2492.700um). Orientation R0
+Bank 16 placed at (250.0, 2076.16): sram_macro_16
+[INFO MPL-0035] Macro sram_macro_17 placed. Bounding box (973.100um, 2076.160um), (1656.200um, 2492.700um). Orientation R0
+Bank 17 placed at (973.1, 2076.16): sram_macro_17
+[INFO MPL-0035] Macro sram_macro_18 placed. Bounding box (1696.200um, 2076.160um), (2379.300um, 2492.700um). Orientation R0
+Bank 18 placed at (1696.2, 2076.16): sram_macro_18
+[INFO MPL-0035] Macro sram_macro_19 placed. Bounding box (2419.300um, 2076.160um), (3102.400um, 2492.700um). Orientation R0
+Bank 19 placed at (2419.3, 2076.16): sram_macro_19
+[INFO MPL-0035] Macro sram_macro_20 placed. Bounding box (250.000um, 2532.700um), (933.100um, 2949.240um). Orientation R0
+Bank 20 placed at (250.0, 2532.7000000000003): sram_macro_20
+[INFO MPL-0035] Macro sram_macro_21 placed. Bounding box (973.100um, 2532.700um), (1656.200um, 2949.240um). Orientation R0
+Bank 21 placed at (973.1, 2532.7000000000003): sram_macro_21
+[INFO MPL-0035] Macro sram_macro_22 placed. Bounding box (1696.200um, 2532.700um), (2379.300um, 2949.240um). Orientation R0
+Bank 22 placed at (1696.2, 2532.7000000000003): sram_macro_22
+[INFO MPL-0035] Macro sram_macro_23 placed. Bounding box (2419.300um, 2532.700um), (3102.400um, 2949.240um). Orientation R0
+Bank 23 placed at (2419.3, 2532.7000000000003): sram_macro_23
+[INFO MPL-0035] Macro sram_macro_24 placed. Bounding box (250.000um, 2989.240um), (933.100um, 3405.780um). Orientation R0
+Bank 24 placed at (250.0, 2989.2400000000002): sram_macro_24
+[INFO MPL-0035] Macro sram_macro_25 placed. Bounding box (973.100um, 2989.240um), (1656.200um, 3405.780um). Orientation R0
+Bank 25 placed at (973.1, 2989.2400000000002): sram_macro_25
+[INFO MPL-0035] Macro sram_macro_26 placed. Bounding box (1696.200um, 2989.240um), (2379.300um, 3405.780um). Orientation R0
+Bank 26 placed at (1696.2, 2989.2400000000002): sram_macro_26
+[INFO MPL-0035] Macro sram_macro_27 placed. Bounding box (2419.300um, 2989.240um), (3102.400um, 3405.780um). Orientation R0
+Bank 27 placed at (2419.3, 2989.2400000000002): sram_macro_27
+[INFO MPL-0035] Macro sram_macro_28 placed. Bounding box (250.000um, 3445.780um), (933.100um, 3862.320um). Orientation R0
+Bank 28 placed at (250.0, 3445.78): sram_macro_28
+[INFO MPL-0035] Macro sram_macro_29 placed. Bounding box (973.100um, 3445.780um), (1656.200um, 3862.320um). Orientation R0
+Bank 29 placed at (973.1, 3445.78): sram_macro_29
+[INFO MPL-0035] Macro sram_macro_30 placed. Bounding box (1696.200um, 3445.780um), (2379.300um, 3862.320um). Orientation R0
+Bank 30 placed at (1696.2, 3445.78): sram_macro_30
+[INFO MPL-0035] Macro sram_macro_31 placed. Bounding box (2419.300um, 3445.780um), (3102.400um, 3862.320um). Orientation R0
+Bank 31 placed at (2419.3, 3445.78): sram_macro_31
+
+========== FLOORPLAN DATABASE SAVED ==========
+SRAM macros placed: 32
+Standard-cell placement is a subsequent stage.

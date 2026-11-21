@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(ROOT, "python"))
 from rv32_asm import assemble, to_hex          # noqa: E402
 from rv32_iss import ISS                        # noqa: E402
 
-PROGS = ["hello", "alu_test", "mem_hazard", "matmul_sw", "matmul_accel"]
+PROGS = ["hello", "alu_test", "mem_hazard", "muldiv_hazard", "matmul_sw", "matmul_accel"]
 
 
 def run_rtl(hexfile, accel_n):

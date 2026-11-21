@@ -5,7 +5,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "python"))
 from rv32_asm import assemble, to_hex
 from rv32_iss import ISS
-PROGS = ["hello", "alu_test", "mem_hazard", "matmul_sw", "matmul_accel"]
+PROGS = ["hello", "alu_test", "mem_hazard", "muldiv_hazard", "matmul_sw", "matmul_accel"]
 ACCEL_N = int(os.environ.get("ACCEL_N", "4"))
 
 def main():

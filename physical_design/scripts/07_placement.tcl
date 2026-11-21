@@ -8,10 +8,19 @@ read_liberty /OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd_
 read_liberty $pdk/libs.ref/sky130_sram_macros/lib/sky130_sram_2kbyte_1rw1r_32x512_8_TT_1p8V_25C.lib
 
 # Restore PDN database.
-read_db /project/physical_design/results/soc_top_sram_pdn.odb
+read_db /project/physical_design/results/soc_top_sram_pdn_cut.odb
 
 # Read timing constraints.
 read_sdc /project/physical_design/constraints.sdc
+
+# Initialize SKY130HD routing tracks.
+source /OpenROAD-flow-scripts/flow/platforms/sky130hd/make_tracks.tcl
+
+
+# Assign physical locations to top-level I/O pins.
+puts "\n========== I/O PIN PLACEMENT =========="
+place_pins -hor_layers met3 -ver_layers met2
+
 
 puts "\n========== PRE-PLACEMENT CHECK =========="
 check_placement -fixed -verbose

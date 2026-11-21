@@ -188,6 +188,70 @@ def gen_mem_hazard():
     return p.text()
 
 
+def gen_muldiv_hazard():
+    """Hazards around the multi-cycle MUL/DIV unit: load->M, M->M, M->ALU forwarding, M->store,
+    M->branch, back-to-back M ops with every funct3, and M inside a loop."""
+    p = Prog()
+    p.emit("li   s0, 0x8000")
+    # 1. load-use into a multiply / divide
+    a, b = 123456, -77 & M
+    p.emit(f"li   t0, {a}", "sw   t0, 0(s0)", f"li   t1, {b}", "sw   t1, 4(s0)",
+           "lw   t2, 0(s0)", "lw   t3, 4(s0)", "mul  t4, t2, t3", "lw   t2, 0(s0)", "lw   t3, 4(s0)",
+           "div  t5, t2, t3")
+    p.check("t4", ref("mul", a, b))
+    p.check("t5", ref("div", a, b))
+    # 2. M result forwarded straight into an ALU op, then into another M op
+    a, b = 1000003, 12345
+    p.emit(f"li   t0, {a}", f"li   t1, {b}", "mul  t2, t0, t1", "add  t3, t2, t0", "mulh t4, t2, t3")
+    t2 = ref("mul", a, b)
+    t3 = (t2 + a) & M
+    p.check("t3", t3)
+    p.check("t4", ref("mulh", t2, t3))
+    # 3. back-to-back M ops, all eight funct3 values, operands from li right before
+    a, b = -5 & M, 3
+    p.emit(f"li   t0, {a}", f"li   t1, {b}")
+    for op, rd in (("mul", "s1"), ("mulh", "s2"), ("mulhu", "s3"), ("mulhsu", "s4"),
+                   ("div", "s5"), ("divu", "s6"), ("rem", "s7"), ("remu", "s8")):
+        p.emit(f"{op:6s} {rd}, t0, t1")
+    for op, rd in (("mul", "s1"), ("mulh", "s2"), ("mulhu", "s3"), ("mulhsu", "s4"),
+                   ("div", "s5"), ("divu", "s6"), ("rem", "s7"), ("remu", "s8")):
+        p.check(rd, ref(op, a, b))
+    # 4. M result stored then reloaded
+    a, b = 0x7FFFFFFF, 0x7FFFFFFF
+    p.emit(f"li   t0, {a}", f"li   t1, {b}", "mulhu t2, t0, t1", "sw   t2, 8(s0)", "lw   t3, 8(s0)")
+    p.check("t3", ref("mulhu", a, b))
+    # 5. branch decided by an M result
+    p.emit("li   t0, 6", "li   t1, 7", "mul  t2, t0, t1", "li   t3, 42", "beq  t2, t3, mb_ok", "j    bad")
+    p.label("mb_ok")
+    p.emit("li   t4, 0", "bne  t2, t3, bad", "addi t4, t4, 1")
+    p.check("t4", 1)
+    # 6. older producers (distance 2/3) feeding instructions after an M op
+    p.emit("li   t0, 9", "li   t1, 4", "add  t5, t0, t1", "mul  t2, t0, t1", "add  t6, t5, t2")
+    p.check("t6", 13 + 36)
+    # 7. instructions after an M op execute in order and are not lost during the stall
+    p.emit("li   t0, 3", "li   t1, 5", "mul  t2, t0, t1", "addi a2, t0, 100", "addi a3, t1, 200", "sub  a4, a3, a2")
+    p.check("a2", 103)
+    p.check("a3", 205)
+    p.check("a4", 102)
+    # 8. M op inside a loop (10!)
+    p.emit("li   t0, 1", "li   t1, 1", "li   t2, 11")
+    p.label("fact")
+    p.emit("mul  t0, t0, t1", "addi t1, t1, 1", "blt  t1, t2, fact")
+    p.check("t0", 3628800)
+    # 9. divide by zero / overflow through the pipeline
+    p.emit("li   t0, 0x80000000", "li   t1, -1", "li   t2, 0", "div  t3, t0, t1", "rem  t4, t0, t1",
+           "div  t5, t0, t2", "rem  t6, t0, t2")
+    p.check("t3", 0x80000000)
+    p.check("t4", 0)
+    p.check("t5", M)
+    p.check("t6", 0x80000000)
+    p.emit("j    pass")
+    p.label("bad")
+    p.emit("li   a0, 99", "j    fail")
+    p.lines.append(EPILOGUE)
+    return p.text()
+
+
 def gen_hello():
     return HEADER + """_start:
     la   s0, msg
@@ -341,6 +405,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     progs = {"hello": gen_hello(), "alu_test": gen_alu(), "mem_hazard": gen_mem_hazard(),
+             "muldiv_hazard": gen_muldiv_hazard(),
              "matmul_sw": gen_matmul_sw(args.n, args.seed), "matmul_accel": gen_matmul_accel(args.n, args.seed)}
     for name, text in progs.items():
         with open(os.path.join(OUT, name + ".S"), "w") as f:

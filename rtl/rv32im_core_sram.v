@@ -2,7 +2,7 @@
 //  - full forwarding (EX/MEM -> EX, MEM/WB -> EX), WB->ID bypass in the register file
 //  - 1-cycle load-use stall
 //  - branches/jumps resolved in EX (predict not-taken, 2-cycle taken penalty)
-//  - M extension: single-cycle behavioural * / %  (replace with iterative units for timing closure)
+//  - M extension: iterative muldiv_unit (34 cycles/op); the pipeline stalls in EX until it finishes
 //  - memory pipeline advancement is qualified by step_en after synchronous SRAM responses;
 //    no exceptions/CSRs; ECALL/EBREAK/FENCE are treated as NOPs.
 //    ECALL/EBREAK/FENCE are treated as NOPs.
@@ -28,6 +28,7 @@ module rv32im_core_sram #(
     // ------------------------------------------------------------------ IF
     reg  [31:0] pc;
     wire        stall;
+    wire        md_done;       // multiply/divide result ready (from muldiv_unit)
     wire        redirect;
     wire [31:0] redirect_pc;
 
@@ -112,7 +113,10 @@ module rv32im_core_sram #(
     reg [1:0]  ex_a_sel;
 
     // load-use hazard: instruction in EX is a load whose rd is read by the instruction in ID
-    assign stall = ex_load && (ex_rd != 5'd0) && (ex_rd == id_rs1 || ex_rd == id_rs2);
+    wire lu_stall = ex_load && (ex_rd != 5'd0) && (ex_rd == id_rs1 || ex_rd == id_rs2);
+    // EX holds a MUL/DIV/REM until the iterative unit finishes: freeze fetch/decode/EX, feed bubbles to MEM
+    wire md_stall = ex_muldiv && !md_done;
+    assign stall = lu_stall | md_stall;
 
     // (synchronous reset/flush: reset must be held for >= 1 clock edge)
     always @(posedge clk) begin
@@ -124,13 +128,13 @@ module rv32im_core_sram #(
             ex_alt <= 1'b0; ex_we <= 1'b0; ex_load <= 1'b0; ex_store <= 1'b0; ex_branch <= 1'b0;
             ex_jal <= 1'b0; ex_jalr <= 1'b0; ex_muldiv <= 1'b0; ex_b_imm <= 1'b0; ex_a_sel <= 2'd0;
         end else if (step_en) begin
-            if (redirect || stall) begin
+            if (redirect || lu_stall) begin
                 ex_pc <= 32'd0; ex_rs1v <= 32'd0; ex_rs2v <= 32'd0; ex_imm <= 32'd0;
                 ex_rd <= 5'd0; ex_rs1 <= 5'd0; ex_rs2 <= 5'd0;
                 ex_f3 <= 3'd0; ex_alu_f3 <= 3'd0;
                 ex_alt <= 1'b0; ex_we <= 1'b0; ex_load <= 1'b0; ex_store <= 1'b0; ex_branch <= 1'b0;
                 ex_jal <= 1'b0; ex_jalr <= 1'b0; ex_muldiv <= 1'b0; ex_b_imm <= 1'b0; ex_a_sel <= 2'd0;
-            end else begin
+            end else if (!md_stall) begin
                 ex_pc <= id_pc;  ex_rs1v <= rf_rdata1; ex_rs2v <= rf_rdata2; ex_imm <= imm;
                 ex_rd <= id_rd;  ex_rs1 <= id_rs1;     ex_rs2 <= id_rs2;
                 ex_f3 <= funct3; ex_alu_f3 <= id_alu_f3;
@@ -176,33 +180,15 @@ module rv32im_core_sram #(
         endcase
     end
 
-    // ---- M extension (behavioural, single cycle) ----
-    wire [63:0] mul_uu = {32'd0, fa} * {32'd0, fb};
-    wire [63:0] mul_ss = $signed({{32{fa[31]}}, fa}) * $signed({{32{fb[31]}}, fb});
-    wire [63:0] mul_su = $signed({{32{fa[31]}}, fa}) * $signed({32'd0, fb});
+    // ---- M extension: iterative multiply/divide unit; stalls the pipeline until done ----
+    wire [31:0] md_result;
+    muldiv_unit u_muldiv (
+        .clk(clk), .rst_n(rst_n),
+        .start(ex_muldiv), .funct3(ex_f3), .a(fa), .b(fb),
+        .ack(md_done && step_en), .done(md_done), .result(md_result)
+    );
 
-    wire signed [31:0] sdiv_raw = $signed(fa) / $signed(fb);
-    wire signed [31:0] srem_raw = $signed(fa) % $signed(fb);
-    wire [31:0]        udiv_raw = fa / fb;
-    wire [31:0]        urem_raw = fa % fb;
-    wire div_zero = (fb == 32'd0);
-    wire div_ovf  = (fa == 32'h8000_0000) && (fb == 32'hFFFF_FFFF);
-
-    reg [31:0] md_out;
-    always @* begin
-        case (ex_f3)
-            3'b000:  md_out = mul_uu[31:0];
-            3'b001:  md_out = mul_ss[63:32];
-            3'b010:  md_out = mul_su[63:32];
-            3'b011:  md_out = mul_uu[63:32];
-            3'b100:  md_out = div_zero ? 32'hFFFF_FFFF : div_ovf ? 32'h8000_0000 : sdiv_raw;
-            3'b101:  md_out = div_zero ? 32'hFFFF_FFFF : udiv_raw;
-            3'b110:  md_out = div_zero ? fa : div_ovf ? 32'd0 : srem_raw;
-            default: md_out = div_zero ? fa : urem_raw;
-        endcase
-    end
-
-    wire [31:0] ex_result = ex_muldiv ? md_out :
+    wire [31:0] ex_result = ex_muldiv ? md_result :
                             (ex_jal | ex_jalr) ? (ex_pc + 32'd4) : alu_out;
 
     // ---- branches / jumps ----
@@ -228,7 +214,7 @@ module rv32im_core_sram #(
             mem_we <= 1'b0; mem_load <= 1'b0; mem_store <= 1'b0;
         end else if (step_en) begin
             mem_alu <= ex_result; mem_rs2 <= fb; mem_rd <= ex_rd; mem_f3 <= ex_f3;
-            mem_we <= ex_we; mem_load <= ex_load; mem_store <= ex_store;
+            mem_we <= ex_we && !md_stall; mem_load <= ex_load; mem_store <= ex_store;
         end
     end
 

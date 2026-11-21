@@ -37,3 +37,15 @@ physical_design/results/*.odb
 # Temporary intermediate RTL backups
 rtl/*.pre_sram.v
 rtl/*.pre_init.v
+
+# Local source backups - preserve locally, do not publish
+backup/
+synthesis/run_sky130_sram_synth.sh.save
+
+# Generated OpenROAD implementation databases and DEF files
+physical_design/results/
+physical_design/results/*.def
+
+# Keep final release regression evidence
+!simulation_logs/final_release_regression.log
+!simulation_logs/final_release_sram_regression.log

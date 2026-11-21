@@ -1,0 +1,33 @@
+python3 python/test_toolchain.py
+toolchain self-test OK
+python3 python/test_muldiv_model.py
+muldiv model OK: 34048 operations over all 8 funct3 values (34 cycles each, incl. latch+fix)
+python3 python/golden_systolic.py
+N=2: 200 random INT8 matmuls match numpy, RUN latency = 4 cycles
+N=4: 200 random INT8 matmuls match numpy, RUN latency = 10 cycles
+N=8: 200 random INT8 matmuls match numpy, RUN latency = 22 cycles
+systolic timing model OK
+== ISS: hello
+UART: Hello, VLSI!
+TEST PASSED  instret=114  gpio=0
+== ISS: alu_test
+TEST PASSED  instret=2747  gpio=0
+== ISS: mem_hazard
+TEST PASSED  instret=169  gpio=0
+== ISS: muldiv_hazard
+TEST PASSED  instret=179  gpio=0
+== ISS: matmul_sw
+TEST PASSED  instret=855  gpio=719
+== ISS: matmul_accel
+TEST PASSED  instret=294  gpio=162
+python3 python/run_regression.py --accel-n 4
+| program | ISS | instructions | RTL | RTL cycles | kernel cycles |
+|---|---|---|---|---|---|
+| hello | PASS | 114 | PASS | 603 | 0 |
+| alu_test | PASS | 2747 | PASS | 8143 | 0 |
+| mem_hazard | PASS | 169 | PASS | 250 | 0 |
+| muldiv_hazard | PASS | 179 | PASS | 1271 | 0 |
+| matmul_sw | PASS | 855 | PASS | 4392 | 4173 |
+| matmul_accel | PASS | 294 | PASS | 456 | 241 |
+
+Accelerator speed-up (4x4 INT8 matmul, copy-in + compute + copy-out): 17.3x (4173 vs 241 cycles)

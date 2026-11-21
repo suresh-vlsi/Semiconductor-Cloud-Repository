@@ -21,17 +21,35 @@ module accel_top #(
 );
     reg [8*N*N-1:0] a_flat, b_flat;
 
-    // ---------------- operand buffers (byte-strobed) ----------------
-    wire [7:0] widx = {addr[7:2], 2'b00};
-    integer bb;
-    always @(posedge clk) begin
-        for (bb = 0; bb < 4; bb = bb + 1) begin
-            if (wstrb[bb] && (widx + bb) < N*N) begin
-                if (addr[11:8] == 4'h1) a_flat[8*(widx+bb) +: 8] <= wdata[8*bb +: 8];
-                if (addr[11:8] == 4'h2) b_flat[8*(widx+bb) +: 8] <= wdata[8*bb +: 8];
+    // ---------------- operand buffers (statically decoded byte writes) ----------------
+    genvar byte_idx;
+    generate
+        for (byte_idx = 0; byte_idx < N*N; byte_idx = byte_idx + 1) begin : OPERAND_BYTE_WRITES
+
+            wire a_byte_we;
+            wire b_byte_we;
+
+            assign a_byte_we =
+                wstrb[byte_idx % 4] &&
+                (addr[11:8] == 4'h1) &&
+                (addr[7:2] == (byte_idx / 4));
+
+            assign b_byte_we =
+                wstrb[byte_idx % 4] &&
+                (addr[11:8] == 4'h2) &&
+                (addr[7:2] == (byte_idx / 4));
+
+            always @(posedge clk) begin
+                if (a_byte_we)
+                    a_flat[8*byte_idx +: 8] <=
+                        wdata[8*(byte_idx % 4) +: 8];
+
+                if (b_byte_we)
+                    b_flat[8*byte_idx +: 8] <=
+                        wdata[8*(byte_idx % 4) +: 8];
             end
         end
-    end
+    endgenerate
 
     // ---------------- control FSM ----------------
     localparam S_IDLE = 2'd0, S_CLEAR = 2'd1, S_RUN = 2'd2;

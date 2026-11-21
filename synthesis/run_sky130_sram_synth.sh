@@ -19,7 +19,7 @@ fi
 
 for f in \
   rtl/sky130_sram_macro_blackbox.v \
-  rtl/regfile.v rtl/rv32im_core_sram.v rtl/pe.v \
+  rtl/regfile.v rtl/muldiv_unit.v rtl/rv32im_core_sram.v rtl/pe.v \
   rtl/systolic_array.v rtl/accel_top.v rtl/uart_tx.v \
   rtl/sky130_sram_64kb.v rtl/soc_top_sram.v; do
   [[ -f "$f" ]] || { echo "ERROR: missing source: $f" >&2; exit 2; }
@@ -31,7 +31,7 @@ OUT="synthesis_reports/${TOP}_sky130"
 "$YOSYS_BIN" -p "
   read_verilog -lib rtl/sky130_sram_macro_blackbox.v
   read_verilog -sv -DSYNTHESIS \
-    rtl/regfile.v rtl/rv32im_core_sram.v rtl/pe.v \
+    rtl/regfile.v rtl/muldiv_unit.v rtl/rv32im_core_sram.v rtl/pe.v \
     rtl/systolic_array.v rtl/accel_top.v rtl/uart_tx.v \
     rtl/sky130_sram_64kb.v rtl/soc_top_sram.v
   chparam -set ACCEL_N ${ACCEL_N} ${TOP}

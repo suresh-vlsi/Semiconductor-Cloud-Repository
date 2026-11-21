@@ -1,0 +1,16 @@
+ACCEL_N=4 python3 python/run_sram_regression.py
+hello          ISS=PASS RTL=PASS cycles=973
+alu_test       ISS=PASS RTL=PASS cycles=18429
+mem_hazard     ISS=PASS RTL=PASS cycles=1001
+muldiv_hazard  ISS=PASS RTL=PASS cycles=1965
+matmul_sw      ISS=PASS RTL=PASS cycles=7585
+matmul_accel   ISS=PASS RTL=PASS cycles=1801
+
+| Program | ISS | SRAM RTL | Cycles |
+|---|---:|---:|---:|
+| hello | PASS | PASS | 973 |
+| alu_test | PASS | PASS | 18429 |
+| mem_hazard | PASS | PASS | 1001 |
+| muldiv_hazard | PASS | PASS | 1965 |
+| matmul_sw | PASS | PASS | 7585 |
+| matmul_accel | PASS | PASS | 1801 |

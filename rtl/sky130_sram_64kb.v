@@ -81,6 +81,8 @@ module sky130_sram_64kb (
 
             wire csb0;
             wire csb1;
+            wire [3:0] bank_wmask;
+
 
             // Port 0: Data read/write.
             assign csb0 =
@@ -94,6 +96,9 @@ module sky130_sram_64kb (
                   if_req_ready &&
                   (if_addr[15:11] == g));
 
+            // Localize write-mask loading to the selected SRAM bank.
+            assign bank_wmask = data_wstrb & {4{~csb0}};
+
             sky130_sram_2kbyte_1rw1r_32x512_8 #(
                 .NUM_WMASKS (4),
                 .DATA_WIDTH (32),
@@ -104,7 +109,7 @@ module sky130_sram_64kb (
                 .clk0   (clk),
                 .csb0   (csb0),
                 .web0   (~data_we),
-                .wmask0 (data_wstrb),
+                .wmask0 (bank_wmask),
                 .addr0  (data_addr[10:2]),
                 .din0   (data_wdata),
                 .dout0  (bank_dout0[g]),
