@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run from the repository root. Example:
+# Run from the repository root.
 # export PDK_DIR=/path/to/sky130A
 # bash synthesis/run_sky130_sram_synth.sh
 
@@ -16,6 +16,7 @@ if [[ ! -f "$LIBERTY" ]]; then
   echo "Check that the sky130_fd_sc_hd library is installed under PDK_DIR." >&2
   exit 2
 fi
+
 for f in \
   rtl/sky130_sram_macro_blackbox.v \
   rtl/regfile.v rtl/rv32im_core_sram.v rtl/pe.v \
@@ -39,9 +40,13 @@ OUT="synthesis_reports/${TOP}_sky130"
   dfflibmap -liberty ${LIBERTY}
   abc -liberty ${LIBERTY}
   clean
-  check
+
   tee -o ${OUT}_stat.txt stat -liberty ${LIBERTY}
   write_verilog -noattr ${OUT}_mapped.v
+
+  # Load standard-cell definitions before connectivity checking.
+  read_liberty -lib ${LIBERTY}
+  check
 " 2>&1 | tee "${OUT}_yosys.log"
 
 echo

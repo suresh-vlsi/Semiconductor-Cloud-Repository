@@ -28,3 +28,12 @@ openlane/*/logs/
 *.bak
 .DS_Store
 Thumbs.db
+# OpenROAD generated databases
+*.odb
+
+# Generated physical-design outputs
+physical_design/results/*.odb
+
+# Temporary intermediate RTL backups
+rtl/*.pre_sram.v
+rtl/*.pre_init.v
