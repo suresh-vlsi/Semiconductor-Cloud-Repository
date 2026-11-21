@@ -1,0 +1,1761 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+-- Running command `
+read_verilog rtl/regfile.v rtl/rv32im_core.v
+hierarchy -check -top rv32im_core
+synth -top rv32im_core -flatten -noabc
+dfflibmap -liberty /home/sureshvlsi/eda-tools/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -fast -liberty /home/sureshvlsi/eda-tools/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+check
+stat -liberty /home/sureshvlsi/eda-tools/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr synthesis_reports/sky130/rv32im_core_sky130.v
+' --
+
+1. Executing Verilog-2005 frontend: rtl/regfile.v
+Parsing Verilog input from `rtl/regfile.v' to AST representation.
+Generating RTLIL representation for module `\regfile'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/rv32im_core.v
+Parsing Verilog input from `rtl/rv32im_core.v' to AST representation.
+Generating RTLIL representation for module `\rv32im_core'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1. Analyzing design hierarchy..
+Top module:  \rv32im_core
+Used module:     \regfile
+
+3.2. Analyzing design hierarchy..
+Top module:  \rv32im_core
+Used module:     \regfile
+Removed 0 unused modules.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \rv32im_core
+Used module:     \regfile
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \rv32im_core
+Used module:     \regfile
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:252$156 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:238$155 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:227$150 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:211$144 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:196$132 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:178$121 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:152$96 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:112$66 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:71$41 in module rv32im_core.
+Marked 2 switch rules as full_case in process $proc$rtl/rv32im_core.v:41$27 in module rv32im_core.
+Marked 2 switch rules as full_case in process $proc$rtl/rv32im_core.v:34$23 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/regfile.v:17$2 in module regfile.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 29 redundant assignments.
+Promoted 9 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~12 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+     1/3: $0\wb_we_r[0:0]
+     2/3: $0\wb_rd_r[4:0]
+     3/3: $0\wb_result_r[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+     1/1: $1\load_data[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+     1/1: $1\wstrb_r[3:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+     1/7: $0\mem_store[0:0]
+     2/7: $0\mem_load[0:0]
+     3/7: $0\mem_we[0:0]
+     4/7: $0\mem_f3[2:0]
+     5/7: $0\mem_rd[4:0]
+     6/7: $0\mem_rs2[31:0]
+     7/7: $0\mem_alu[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+     1/1: $1\br_taken[0:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+     1/1: $1\md_out[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+     1/1: $1\alu_out[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+     1/19: $0\ex_a_sel[1:0]
+     2/19: $0\ex_b_imm[0:0]
+     3/19: $0\ex_muldiv[0:0]
+     4/19: $0\ex_jalr[0:0]
+     5/19: $0\ex_jal[0:0]
+     6/19: $0\ex_branch[0:0]
+     7/19: $0\ex_store[0:0]
+     8/19: $0\ex_load[0:0]
+     9/19: $0\ex_we[0:0]
+    10/19: $0\ex_alt[0:0]
+    11/19: $0\ex_alu_f3[2:0]
+    12/19: $0\ex_f3[2:0]
+    13/19: $0\ex_rs2[4:0]
+    14/19: $0\ex_rs1[4:0]
+    15/19: $0\ex_rd[4:0]
+    16/19: $0\ex_imm[31:0]
+    17/19: $0\ex_rs2v[31:0]
+    18/19: $0\ex_rs1v[31:0]
+    19/19: $0\ex_pc[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+     1/1: $1\imm[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+     1/2: $0\id_instr[31:0]
+     2/2: $0\id_pc[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+     1/1: $0\pc[31:0]
+Creating decoders for process `\regfile.$proc$rtl/regfile.v:17$2'.
+     1/3: $1$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$10
+     2/3: $1$memwr$\regs$rtl/regfile.v:18$1_DATA[31:0]$9
+     3/3: $1$memwr$\regs$rtl/regfile.v:18$1_ADDR[4:0]$8
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\rv32im_core.\load_data' from process `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+No latch inferred for signal `\rv32im_core.\wstrb_r' from process `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+No latch inferred for signal `\rv32im_core.\br_taken' from process `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+No latch inferred for signal `\rv32im_core.\md_out' from process `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+No latch inferred for signal `\rv32im_core.\alu_out' from process `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+No latch inferred for signal `\rv32im_core.\imm' from process `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\rv32im_core.\wb_result_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$287' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\wb_rd_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$292' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\wb_we_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$297' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_alu' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$302' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_rs2' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$307' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_rd' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$312' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$317' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_we' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$322' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_load' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$327' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_store' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$332' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\ex_pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$333' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs1v' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$334' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs2v' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$335' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_imm' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$336' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rd' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$337' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs1' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$338' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs2' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$339' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$340' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_alu_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$341' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_alt' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$342' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_we' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$343' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_load' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$344' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_store' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$345' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_branch' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$346' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_jal' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$347' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_jalr' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$348' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_muldiv' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$349' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_b_imm' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$350' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_a_sel' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$351' with positive edge clock.
+Creating register for signal `\rv32im_core.\id_pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+  created $adff cell `$procdff$356' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\id_instr' using process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+  created $adff cell `$procdff$361' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+  created $adff cell `$procdff$366' with positive edge clock and positive level reset.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_ADDR' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$367' with positive edge clock.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_DATA' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$368' with positive edge clock.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_EN' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$369' with positive edge clock.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+Found and cleaned up 2 empty switches in `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Found and cleaned up 2 empty switches in `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+Found and cleaned up 1 empty switch in `\regfile.$proc$rtl/regfile.v:17$2'.
+Removing empty process `regfile.$proc$rtl/regfile.v:17$2'.
+Cleaned up 12 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~42 debug messages>
+Optimizing module regfile.
+<suppressed ~3 debug messages>
+
+4.3. Executing FLATTEN pass (flatten design).
+Deleting now unused module regfile.
+<suppressed ~1 debug messages>
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 22 unused cells and 157 unused wires.
+<suppressed ~23 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module rv32im_core...
+Found and reported 0 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~66 debug messages>
+Removed a total of 22 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~35 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+    Consolidated identical input bits for $mux cell $flatten\u_rf.$procmux$275:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5
+      New ports: A=1'0, B=1'1, Y=$flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0]
+      New connections: $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [31:1] = { $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] $flatten\u_rf.$0$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$5 [0] }
+  Optimizing cells in module \rv32im_core.
+Performed a total of 1 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.7.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 19 unused wires.
+<suppressed ~1 debug messages>
+
+4.7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~35 debug messages>
+
+4.7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.7.16. Finished OPT passes. (There is nothing left to do.)
+
+4.8. Executing FSM pass (extract and optimize FSM).
+
+4.8.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register rv32im_core.ex_a_sel.
+
+4.8.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\ex_a_sel' from module `\rv32im_core'.
+  found $dff cell for state register: $procdff$351
+  root of input selection tree: $0\ex_a_sel[1:0]
+  found reset state: 2'00 (guessed from mux tree)
+  found ctrl input: $logic_or$rtl/rv32im_core.v:113$69_Y
+  found ctrl input: \is_auipc
+  found ctrl input: \is_lui
+  found state code: 2'00
+  found state code: 2'10
+  found state code: 2'01
+  found ctrl output: $eq$rtl/rv32im_core.v:142$90_Y
+  found ctrl output: $eq$rtl/rv32im_core.v:142$91_Y
+  ctrl inputs: { $logic_or$rtl/rv32im_core.v:113$69_Y \is_auipc \is_lui }
+  ctrl outputs: { $eq$rtl/rv32im_core.v:142$91_Y $eq$rtl/rv32im_core.v:142$90_Y $0\ex_a_sel[1:0] }
+  transition:       2'00 3'000 ->       2'00 4'0000
+  transition:       2'00 3'001 ->       2'10 4'0010
+  transition:       2'00 3'01- ->       2'01 4'0001
+  transition:       2'00 3'1-- ->       2'00 4'0000
+  transition:       2'10 3'000 ->       2'00 4'1000
+  transition:       2'10 3'001 ->       2'10 4'1010
+  transition:       2'10 3'01- ->       2'01 4'1001
+  transition:       2'10 3'1-- ->       2'00 4'1000
+  transition:       2'01 3'000 ->       2'00 4'0100
+  transition:       2'01 3'001 ->       2'10 4'0110
+  transition:       2'01 3'01- ->       2'01 4'0101
+  transition:       2'01 3'1-- ->       2'00 4'0100
+
+4.8.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\ex_a_sel$372' from module `\rv32im_core'.
+
+4.8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 6 unused cells and 6 unused wires.
+<suppressed ~8 debug messages>
+
+4.8.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\ex_a_sel$372' from module `\rv32im_core'.
+  Removing unused output signal $0\ex_a_sel[1:0] [0].
+  Removing unused output signal $0\ex_a_sel[1:0] [1].
+
+4.8.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\ex_a_sel$372' from module `\rv32im_core' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> --1
+  10 -> -1-
+  01 -> 1--
+
+4.8.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\ex_a_sel$372' from module `rv32im_core':
+-------------------------------------
+
+  Information on FSM $fsm$\ex_a_sel$372 (\ex_a_sel):
+
+  Number of input signals:    3
+  Number of output signals:   2
+  Number of state bits:       3
+
+  Input signals:
+    0: \is_lui
+    1: \is_auipc
+    2: $logic_or$rtl/rv32im_core.v:113$69_Y
+
+  Output signals:
+    0: $eq$rtl/rv32im_core.v:142$90_Y
+    1: $eq$rtl/rv32im_core.v:142$91_Y
+
+  State encoding:
+    0:      3'--1  <RESET STATE>
+    1:      3'-1-
+    2:      3'1--
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 3'000   ->     0 2'00
+      1:     0 3'1--   ->     0 2'00
+      2:     0 3'001   ->     1 2'00
+      3:     0 3'01-   ->     2 2'00
+      4:     1 3'000   ->     0 2'10
+      5:     1 3'1--   ->     0 2'10
+      6:     1 3'001   ->     1 2'10
+      7:     1 3'01-   ->     2 2'10
+      8:     2 3'000   ->     0 2'01
+      9:     2 3'1--   ->     0 2'01
+     10:     2 3'001   ->     1 2'01
+     11:     2 3'01-   ->     2 2'01
+
+-------------------------------------
+
+4.8.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\ex_a_sel$372' from module `\rv32im_core'.
+
+4.9. Executing OPT pass (performing simple optimizations).
+
+4.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~2 debug messages>
+
+4.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~34 debug messages>
+
+4.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.9.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$366 ($adff) from module rv32im_core (D = $0\pc[31:0], Q = \pc).
+Adding EN signal on $procdff$361 ($adff) from module rv32im_core (D = $0\id_instr[31:0], Q = \id_instr).
+Adding EN signal on $procdff$356 ($adff) from module rv32im_core (D = $0\id_pc[31:0], Q = \id_pc).
+Adding SRST signal on $procdff$350 ($dff) from module rv32im_core (D = \id_b_imm, Q = \ex_b_imm, rval = 1'0).
+Adding SRST signal on $procdff$349 ($dff) from module rv32im_core (D = \is_muldiv, Q = \ex_muldiv, rval = 1'0).
+Adding SRST signal on $procdff$348 ($dff) from module rv32im_core (D = \is_jalr, Q = \ex_jalr, rval = 1'0).
+Adding SRST signal on $procdff$347 ($dff) from module rv32im_core (D = \is_jal, Q = \ex_jal, rval = 1'0).
+Adding SRST signal on $procdff$346 ($dff) from module rv32im_core (D = \is_branch, Q = \ex_branch, rval = 1'0).
+Adding SRST signal on $procdff$345 ($dff) from module rv32im_core (D = \is_store, Q = \ex_store, rval = 1'0).
+Adding SRST signal on $procdff$344 ($dff) from module rv32im_core (D = \is_load, Q = \ex_load, rval = 1'0).
+Adding SRST signal on $procdff$343 ($dff) from module rv32im_core (D = \id_reg_we, Q = \ex_we, rval = 1'0).
+Adding SRST signal on $procdff$342 ($dff) from module rv32im_core (D = \id_instr [30], Q = \ex_alt, rval = 1'0).
+Adding SRST signal on $procdff$341 ($dff) from module rv32im_core (D = \id_instr [14:12], Q = \ex_alu_f3, rval = 3'000).
+Adding SRST signal on $procdff$340 ($dff) from module rv32im_core (D = \id_instr [14:12], Q = \ex_f3, rval = 3'000).
+Adding SRST signal on $procdff$339 ($dff) from module rv32im_core (D = \id_instr [24:20], Q = \ex_rs2, rval = 5'00000).
+Adding SRST signal on $procdff$338 ($dff) from module rv32im_core (D = \id_instr [19:15], Q = \ex_rs1, rval = 5'00000).
+Adding SRST signal on $procdff$337 ($dff) from module rv32im_core (D = \id_instr [11:7], Q = \ex_rd, rval = 5'00000).
+Adding SRST signal on $procdff$336 ($dff) from module rv32im_core (D = \imm, Q = \ex_imm, rval = 0).
+Adding SRST signal on $procdff$335 ($dff) from module rv32im_core (D = $flatten\u_rf.$ternary$rtl/regfile.v:23$21_Y, Q = \ex_rs2v, rval = 0).
+Adding SRST signal on $procdff$334 ($dff) from module rv32im_core (D = $flatten\u_rf.$ternary$rtl/regfile.v:21$15_Y, Q = \ex_rs1v, rval = 0).
+Adding SRST signal on $procdff$333 ($dff) from module rv32im_core (D = \id_pc, Q = \ex_pc, rval = 0).
+
+4.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 22 unused cells and 32 unused wires.
+<suppressed ~29 debug messages>
+
+4.9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.9.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~19 debug messages>
+
+4.9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.9.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+4.9.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+4.9.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.9.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~19 debug messages>
+
+4.9.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.9.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.9.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.9.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.9.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.9.23. Finished OPT passes. (There is nothing left to do.)
+
+4.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 29 bits (of 32) from port B of cell rv32im_core.$add$rtl/rv32im_core.v:37$26 ($add).
+Removed top 1 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:59$30 ($eq).
+Removed top 2 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:60$31 ($eq).
+Removed top 5 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:64$35 ($eq).
+Removed top 1 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:65$36 ($eq).
+Removed top 2 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:66$37 ($eq).
+Removed top 1 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:67$38 ($eq).
+Removed top 6 bits (of 7) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:68$39 ($eq).
+Removed top 2 bits (of 3) from port B of cell rv32im_core.$auto$fsm_map.cc:77:implement_pattern_cache$386 ($eq).
+Removed top 1 bits (of 2) from port B of cell rv32im_core.$auto$fsm_map.cc:77:implement_pattern_cache$388 ($eq).
+Removed top 31 bits (of 32) from mux cell rv32im_core.$ternary$rtl/rv32im_core.v:156$102 ($mux).
+Removed top 31 bits (of 32) from mux cell rv32im_core.$ternary$rtl/rv32im_core.v:157$104 ($mux).
+Removed top 32 bits (of 64) from port A of cell rv32im_core.$mul$rtl/rv32im_core.v:166$110 ($mul).
+Removed top 32 bits (of 64) from port B of cell rv32im_core.$mul$rtl/rv32im_core.v:166$110 ($mul).
+Converting cell rv32im_core.$mul$rtl/rv32im_core.v:167$111 ($mul) from unsigned to signed.
+Removed top 32 bits (of 64) from port A of cell rv32im_core.$mul$rtl/rv32im_core.v:167$111 ($mul).
+Removed top 32 bits (of 64) from port B of cell rv32im_core.$mul$rtl/rv32im_core.v:167$111 ($mul).
+Converting cell rv32im_core.$mul$rtl/rv32im_core.v:168$112 ($mul) from unsigned to signed.
+Removed top 32 bits (of 64) from port A of cell rv32im_core.$mul$rtl/rv32im_core.v:168$112 ($mul).
+Removed top 31 bits (of 64) from port B of cell rv32im_core.$mul$rtl/rv32im_core.v:168$112 ($mul).
+Removed top 29 bits (of 32) from port B of cell rv32im_core.$add$rtl/rv32im_core.v:192$129 ($add).
+Removed top 1 bits (of 2) from port B of cell rv32im_core.$auto$opt_dff.cc:195:make_patterns_logic$391 ($ne).
+Removed top 1 bits (of 2) from port B of cell rv32im_core.$eq$rtl/rv32im_core.v:225$147 ($eq).
+Removed top 3 bits (of 4) from port A of cell rv32im_core.$shl$rtl/rv32im_core.v:229$151 ($shl).
+Removed top 16 bits (of 32) from port Y of cell rv32im_core.$shr$rtl/rv32im_core.v:236$154 ($shr).
+Removed top 2 bits (of 3) from port B of cell rv32im_core.$procmux$163_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell rv32im_core.$procmux$175_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell rv32im_core.$procmux$182_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell rv32im_core.$procmux$183_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell rv32im_core.$procmux$191_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell rv32im_core.$procmux$192_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell rv32im_core.$procmux$193_CMP0 ($eq).
+Removed top 31 bits (of 32) from wire rv32im_core.$ternary$rtl/rv32im_core.v:156$102_Y.
+Removed top 31 bits (of 32) from wire rv32im_core.$ternary$rtl/rv32im_core.v:157$104_Y.
+Removed top 16 bits (of 32) from wire rv32im_core.rd_shift.
+
+4.11. Executing PEEPOPT pass (run peephole optimizers).
+
+4.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 3 unused wires.
+<suppressed ~1 debug messages>
+
+4.13. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module rv32im_core:
+  creating $macc model for $add$rtl/rv32im_core.v:154$98 ($add).
+  creating $macc model for $add$rtl/rv32im_core.v:192$129 ($add).
+  creating $macc model for $add$rtl/rv32im_core.v:208$142 ($add).
+  creating $macc model for $add$rtl/rv32im_core.v:37$26 ($add).
+  creating $macc model for $mul$rtl/rv32im_core.v:166$110 ($mul).
+  creating $macc model for $mul$rtl/rv32im_core.v:167$111 ($mul).
+  creating $macc model for $mul$rtl/rv32im_core.v:168$112 ($mul).
+  creating $macc model for $sub$rtl/rv32im_core.v:154$97 ($sub).
+  creating $alu model for $macc $sub$rtl/rv32im_core.v:154$97.
+  creating $alu model for $macc $add$rtl/rv32im_core.v:37$26.
+  creating $alu model for $macc $add$rtl/rv32im_core.v:208$142.
+  creating $alu model for $macc $add$rtl/rv32im_core.v:192$129.
+  creating $alu model for $macc $add$rtl/rv32im_core.v:154$98.
+  creating $macc cell for $mul$rtl/rv32im_core.v:167$111: $auto$alumacc.cc:365:replace_macc$431
+  creating $macc cell for $mul$rtl/rv32im_core.v:168$112: $auto$alumacc.cc:365:replace_macc$432
+  creating $macc cell for $mul$rtl/rv32im_core.v:166$110: $auto$alumacc.cc:365:replace_macc$433
+  creating $alu model for $ge$rtl/rv32im_core.v:201$136 ($ge): new $alu
+  creating $alu model for $ge$rtl/rv32im_core.v:203$138 ($ge): new $alu
+  creating $alu model for $lt$rtl/rv32im_core.v:156$101 ($lt): new $alu
+  creating $alu model for $lt$rtl/rv32im_core.v:157$103 ($lt): merged with $sub$rtl/rv32im_core.v:154$97.
+  creating $alu model for $lt$rtl/rv32im_core.v:200$135 ($lt): merged with $ge$rtl/rv32im_core.v:201$136.
+  creating $alu model for $lt$rtl/rv32im_core.v:202$137 ($lt): merged with $ge$rtl/rv32im_core.v:203$138.
+  creating $alu model for $eq$rtl/rv32im_core.v:198$133 ($eq): merged with $ge$rtl/rv32im_core.v:203$138.
+  creating $alu model for $ne$rtl/rv32im_core.v:199$134 ($ne): merged with $ge$rtl/rv32im_core.v:203$138.
+  creating $alu cell for $ge$rtl/rv32im_core.v:203$138, $lt$rtl/rv32im_core.v:202$137, $eq$rtl/rv32im_core.v:198$133, $ne$rtl/rv32im_core.v:199$134: $auto$alumacc.cc:495:replace_alu$437
+  creating $alu cell for $ge$rtl/rv32im_core.v:201$136, $lt$rtl/rv32im_core.v:200$135: $auto$alumacc.cc:495:replace_alu$452
+  creating $alu cell for $add$rtl/rv32im_core.v:192$129: $auto$alumacc.cc:495:replace_alu$467
+  creating $alu cell for $add$rtl/rv32im_core.v:208$142: $auto$alumacc.cc:495:replace_alu$470
+  creating $alu cell for $add$rtl/rv32im_core.v:37$26: $auto$alumacc.cc:495:replace_alu$473
+  creating $alu cell for $lt$rtl/rv32im_core.v:156$101: $auto$alumacc.cc:495:replace_alu$476
+  creating $alu cell for $add$rtl/rv32im_core.v:154$98: $auto$alumacc.cc:495:replace_alu$483
+  creating $alu cell for $sub$rtl/rv32im_core.v:154$97, $lt$rtl/rv32im_core.v:157$103: $auto$alumacc.cc:495:replace_alu$486
+  created 8 $alu and 3 $macc cells.
+
+4.14. Executing SHARE pass (SAT-based resource sharing).
+Found 10 cells in module rv32im_core that may be considered for resource sharing.
+  Analyzing resource sharing options for $sshr$rtl/rv32im_core.v:149$95 ($sshr):
+    Found 2 activation_patterns using ctrl signal { $procmux$189_CMP $or$rtl/rv32im_core.v:192$128_Y \ex_muldiv \ex_jalr \ex_alt \redirect }.
+    No candidates found.
+  Analyzing resource sharing options for $shr$rtl/rv32im_core.v:236$154 ($shr):
+    Found 4 activation_patterns using ctrl signal { $procmux$164_CMP $procmux$163_CMP $procmux$162_CMP $procmux$161_CMP \mem_load }.
+    Found 1 candidates: $shr$rtl/rv32im_core.v:159$106
+    Analyzing resource sharing with $shr$rtl/rv32im_core.v:159$106 ($shr):
+      Found 2 activation_patterns using ctrl signal { $procmux$189_CMP $or$rtl/rv32im_core.v:192$128_Y \ex_muldiv \ex_jalr \ex_alt \redirect }.
+      Activation pattern for cell $shr$rtl/rv32im_core.v:236$154: { $procmux$161_CMP \mem_load } = 2'11
+      Activation pattern for cell $shr$rtl/rv32im_core.v:236$154: { $procmux$162_CMP \mem_load } = 2'11
+      Activation pattern for cell $shr$rtl/rv32im_core.v:236$154: { $procmux$163_CMP \mem_load } = 2'11
+      Activation pattern for cell $shr$rtl/rv32im_core.v:236$154: { $procmux$164_CMP \mem_load } = 2'11
+      Activation pattern for cell $shr$rtl/rv32im_core.v:159$106: { $procmux$189_CMP $or$rtl/rv32im_core.v:192$128_Y \ex_muldiv \ex_alt } = 4'1000
+      Activation pattern for cell $shr$rtl/rv32im_core.v:159$106: { $procmux$189_CMP \ex_jalr \ex_alt \redirect } = 4'1101
+      Size of SAT problem: 45 cells, 2672 variables, 6961 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $procmux$189_CMP $procmux$164_CMP $procmux$163_CMP $procmux$162_CMP $procmux$161_CMP $or$rtl/rv32im_core.v:192$128_Y \mem_load \ex_muldiv \ex_jalr \ex_alt \redirect } = 11'10010010000
+  Analyzing resource sharing options for $shr$rtl/rv32im_core.v:159$106 ($shr):
+    Found 2 activation_patterns using ctrl signal { $procmux$189_CMP $or$rtl/rv32im_core.v:192$128_Y \ex_muldiv \ex_jalr \ex_alt \redirect }.
+    No candidates found.
+  Analyzing resource sharing options for $shl$rtl/rv32im_core.v:155$100 ($shl):
+    Found 2 activation_patterns using ctrl signal { $procmux$193_CMP $or$rtl/rv32im_core.v:192$128_Y \ex_muldiv \ex_jalr \redirect }.
+    No candidates found.
+  Analyzing resource sharing options for $mod$rtl/rv32im_core.v:173$116 ($mod):
+    Found 1 activation_patterns using ctrl signal { $procmux$183_CMP $procmux$182_CMP $procmux$176_CMP $procmux$175_CMP $procmux$174_CMP $procmux$173_CMP $procmux$172_CMP \div_zero \ex_muldiv }.
+    Found 1 candidates: $mod$rtl/rv32im_core.v:171$114
+    Analyzing resource sharing with $mod$rtl/rv32im_core.v:171$114 ($mod):
+      Found 1 activation_patterns using ctrl signal { $procmux$172_CMP \div_ovf \div_zero \ex_muldiv }.
+      Activation pattern for cell $mod$rtl/rv32im_core.v:173$116: { $procmux$183_CMP $procmux$182_CMP $procmux$176_CMP $procmux$175_CMP $procmux$174_CMP $procmux$173_CMP $procmux$172_CMP \div_zero \ex_muldiv } = 9'000000001
+      Activation pattern for cell $mod$rtl/rv32im_core.v:171$114: { $procmux$172_CMP \div_ovf \div_zero \ex_muldiv } = 4'1001
+      Size of SAT problem: 27 cells, 1403 variables, 3574 clauses
+      According to the SAT solver this pair of cells can be shared.
+      Activation signal for $mod$rtl/rv32im_core.v:171$114: $auto$share.cc:1005:make_cell_activation_logic$491
+      New cell: $auto$share.cc:669:make_supercell$498 ($mod)
+  Analyzing resource sharing options for $auto$share.cc:669:make_supercell$498 ($mod):
+    Found 2 activation_patterns using ctrl signal { $procmux$183_CMP $procmux$182_CMP $procmux$176_CMP $procmux$175_CMP $procmux$174_CMP $procmux$173_CMP $procmux$172_CMP \div_ovf \div_zero \ex_muldiv }.
+    No candidates found.
+  Analyzing resource sharing options for $flatten\u_rf.$memrd$\regs$rtl/regfile.v:23$20 ($memrd):
+    Found 1 activation_patterns using ctrl signal $flatten\u_rf.$logic_and$rtl/regfile.v:23$19_Y.
+    Found 1 candidates: $flatten\u_rf.$memrd$\regs$rtl/regfile.v:21$14
+    Analyzing resource sharing with $flatten\u_rf.$memrd$\regs$rtl/regfile.v:21$14 ($memrd):
+      Found 1 activation_patterns using ctrl signal $flatten\u_rf.$logic_and$rtl/regfile.v:21$13_Y.
+      Activation pattern for cell $flatten\u_rf.$memrd$\regs$rtl/regfile.v:23$20: $flatten\u_rf.$logic_and$rtl/regfile.v:23$19_Y = 1'0
+      Activation pattern for cell $flatten\u_rf.$memrd$\regs$rtl/regfile.v:21$14: $flatten\u_rf.$logic_and$rtl/regfile.v:21$13_Y = 1'0
+      Size of SAT problem: 4 cells, 73 variables, 167 clauses
+      According to the SAT solver this pair of cells can not be shared.
+      Model from SAT solver: { $flatten\u_rf.$logic_and$rtl/regfile.v:23$19_Y $flatten\u_rf.$logic_and$rtl/regfile.v:21$13_Y } = 2'00
+  Analyzing resource sharing options for $flatten\u_rf.$memrd$\regs$rtl/regfile.v:21$14 ($memrd):
+    Found 1 activation_patterns using ctrl signal $flatten\u_rf.$logic_and$rtl/regfile.v:21$13_Y.
+    No candidates found.
+  Analyzing resource sharing options for $div$rtl/rv32im_core.v:172$115 ($div):
+    Found 1 activation_patterns using ctrl signal { $procmux$173_CMP \div_zero \ex_muldiv }.
+    Found 1 candidates: $div$rtl/rv32im_core.v:170$113
+    Analyzing resource sharing with $div$rtl/rv32im_core.v:170$113 ($div):
+      Found 1 activation_patterns using ctrl signal { $procmux$174_CMP \div_ovf \div_zero \ex_muldiv }.
+      Activation pattern for cell $div$rtl/rv32im_core.v:172$115: { $procmux$173_CMP \div_zero \ex_muldiv } = 3'101
+      Activation pattern for cell $div$rtl/rv32im_core.v:170$113: { $procmux$174_CMP \div_ovf \div_zero \ex_muldiv } = 4'1001
+      Size of SAT problem: 22 cells, 1356 variables, 3426 clauses
+      According to the SAT solver this pair of cells can be shared.
+      Activation signal for $div$rtl/rv32im_core.v:172$115: $auto$share.cc:1005:make_cell_activation_logic$501
+      New cell: $auto$share.cc:669:make_supercell$508 ($div)
+  Analyzing resource sharing options for $auto$share.cc:669:make_supercell$508 ($div):
+    Found 2 activation_patterns using ctrl signal { $procmux$174_CMP $procmux$173_CMP \div_ovf \div_zero \ex_muldiv }.
+    No candidates found.
+Removing 4 cells in module rv32im_core:
+  Removing cell $div$rtl/rv32im_core.v:170$113 ($div).
+  Removing cell $div$rtl/rv32im_core.v:172$115 ($div).
+  Removing cell $mod$rtl/rv32im_core.v:171$114 ($mod).
+  Removing cell $mod$rtl/rv32im_core.v:173$116 ($mod).
+
+4.15. Executing OPT pass (performing simple optimizations).
+
+4.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~1 debug messages>
+
+4.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+4.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~23 debug messages>
+
+4.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.15.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.15.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 1 unused cells and 11 unused wires.
+<suppressed ~4 debug messages>
+
+4.15.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.15.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.15.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~23 debug messages>
+
+4.15.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.15.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.15.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.15.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.15.16. Finished OPT passes. (There is nothing left to do.)
+
+4.16. Executing MEMORY pass.
+
+4.16.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.16.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.16.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing rv32im_core.u_rf.regs write port 0.
+
+4.16.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.16.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\u_rf.regs'[0] in module `\rv32im_core': merging output FF to cell.
+    Write port 0: transparent.
+Checking read port `\u_rf.regs'[1] in module `\rv32im_core': merging output FF to cell.
+    Write port 0: transparent.
+
+4.16.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 8 unused cells and 72 unused wires.
+<suppressed ~9 debug messages>
+
+4.16.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+Consolidating read ports of memory rv32im_core.u_rf.regs by address:
+
+4.16.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.16.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.16.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.17. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.18. Executing OPT pass (performing simple optimizations).
+
+4.18.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~10 debug messages>
+
+4.18.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.18.3. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:266:slice$389 ($adffe) from module rv32im_core (D = $0\pc[31:0] [1:0], Q = \pc [1:0]).
+
+4.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~1 debug messages>
+
+4.18.5. Rerunning OPT passes. (Removed registers in this run.)
+
+4.18.6. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~1 debug messages>
+
+4.18.7. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.18.8. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.18.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+4.18.10. Finished fast OPT passes.
+
+4.19. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \u_rf.regs in module \rv32im_core:
+  created 31 $dff cells and 0 static cells of width 32.
+Extracted data FF from read port 0 of rv32im_core.u_rf.regs: $\u_rf.regs$rdreg[0]
+Extracted data FF from read port 1 of rv32im_core.u_rf.regs: $\u_rf.regs$rdreg[1]
+  read interface: 2 $dff and 62 $mux cells.
+  write interface: 31 write mux blocks.
+
+4.20. Executing OPT pass (performing simple optimizations).
+
+4.20.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~52 debug messages>
+
+4.20.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~51 debug messages>
+
+4.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+    Consolidated identical input bits for $mux cell $auto$share.cc:662:make_supercell$495:
+      Old ports: A={ 1'0 \fa }, B={ \fa [31] \fa }, Y=$auto$share.cc:659:make_supercell$493
+      New ports: A=1'0, B=\fa [31], Y=$auto$share.cc:659:make_supercell$493 [32]
+      New connections: $auto$share.cc:659:make_supercell$493 [31:0] = \fa
+    Consolidated identical input bits for $mux cell $auto$share.cc:662:make_supercell$505:
+      Old ports: A={ \fa [31] \fa }, B={ 1'0 \fa }, Y=$auto$share.cc:659:make_supercell$503
+      New ports: A=\fa [31], B=1'0, Y=$auto$share.cc:659:make_supercell$503 [32]
+      New connections: $auto$share.cc:659:make_supercell$503 [31:0] = \fa
+    Consolidated identical input bits for $mux cell $auto$share.cc:663:make_supercell$496:
+      Old ports: A={ 1'0 \fb }, B={ \fb [31] \fb }, Y=$auto$share.cc:660:make_supercell$494
+      New ports: A=1'0, B=\fb [31], Y=$auto$share.cc:660:make_supercell$494 [32]
+      New connections: $auto$share.cc:660:make_supercell$494 [31:0] = \fb
+    Consolidated identical input bits for $mux cell $auto$share.cc:663:make_supercell$506:
+      Old ports: A={ \fb [31] \fb }, B={ 1'0 \fb }, Y=$auto$share.cc:660:make_supercell$504
+      New ports: A=\fb [31], B=1'0, Y=$auto$share.cc:660:make_supercell$504 [32]
+      New connections: $auto$share.cc:660:make_supercell$504 [31:0] = \fb
+    Consolidated identical input bits for $mux cell $ternary$rtl/rv32im_core.v:225$148:
+      Old ports: A=\mem_rs2, B={ \mem_rs2 [15:0] \mem_rs2 [15:0] }, Y=$ternary$rtl/rv32im_core.v:225$148_Y
+      New ports: A=\mem_rs2 [31:16], B=\mem_rs2 [15:0], Y=$ternary$rtl/rv32im_core.v:225$148_Y [31:16]
+      New connections: $ternary$rtl/rv32im_core.v:225$148_Y [15:0] = \mem_rs2 [15:0]
+    Consolidated identical input bits for $mux cell $ternary$rtl/rv32im_core.v:230$152:
+      Old ports: A=4'0011, B=4'1100, Y=$ternary$rtl/rv32im_core.v:230$152_Y
+      New ports: A=2'01, B=2'10, Y={ $ternary$rtl/rv32im_core.v:230$152_Y [2] $ternary$rtl/rv32im_core.v:230$152_Y [0] }
+      New connections: { $ternary$rtl/rv32im_core.v:230$152_Y [3] $ternary$rtl/rv32im_core.v:230$152_Y [1] } = { $ternary$rtl/rv32im_core.v:230$152_Y [2] $ternary$rtl/rv32im_core.v:230$152_Y [0] }
+  Optimizing cells in module \rv32im_core.
+    Consolidated identical input bits for $mux cell $ternary$rtl/rv32im_core.v:224$149:
+      Old ports: A=$ternary$rtl/rv32im_core.v:225$148_Y, B={ \mem_rs2 [7:0] \mem_rs2 [7:0] \mem_rs2 [7:0] \mem_rs2 [7:0] }, Y=\dmem_wdata
+      New ports: A={ $ternary$rtl/rv32im_core.v:225$148_Y [31:16] \mem_rs2 [15:8] }, B={ \mem_rs2 [7:0] \mem_rs2 [7:0] \mem_rs2 [7:0] }, Y=\dmem_wdata [31:8]
+      New connections: \dmem_wdata [7:0] = \mem_rs2 [7:0]
+  Optimizing cells in module \rv32im_core.
+Performed a total of 7 changes.
+
+4.20.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.20.6. Executing OPT_SHARE pass.
+
+4.20.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 0 unused cells and 100 unused wires.
+<suppressed ~1 debug messages>
+
+4.20.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~4 debug messages>
+
+4.20.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+4.20.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.20.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.20.14. Executing OPT_SHARE pass.
+
+4.20.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\u_rf.regs[9]$599 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[9]).
+Adding EN signal on $memory\u_rf.regs[8]$597 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[8]).
+Adding EN signal on $memory\u_rf.regs[7]$595 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[7]).
+Adding EN signal on $memory\u_rf.regs[6]$593 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[6]).
+Adding EN signal on $memory\u_rf.regs[5]$591 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[5]).
+Adding EN signal on $memory\u_rf.regs[4]$589 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[4]).
+Adding EN signal on $memory\u_rf.regs[3]$587 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[3]).
+Adding EN signal on $memory\u_rf.regs[31]$643 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[31]).
+Adding EN signal on $memory\u_rf.regs[30]$641 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[30]).
+Adding EN signal on $memory\u_rf.regs[2]$585 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[2]).
+Adding EN signal on $memory\u_rf.regs[29]$639 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[29]).
+Adding EN signal on $memory\u_rf.regs[28]$637 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[28]).
+Adding EN signal on $memory\u_rf.regs[27]$635 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[27]).
+Adding EN signal on $memory\u_rf.regs[26]$633 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[26]).
+Adding EN signal on $memory\u_rf.regs[25]$631 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[25]).
+Adding EN signal on $memory\u_rf.regs[24]$629 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[24]).
+Adding EN signal on $memory\u_rf.regs[23]$627 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[23]).
+Adding EN signal on $memory\u_rf.regs[22]$625 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[22]).
+Adding EN signal on $memory\u_rf.regs[21]$623 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[21]).
+Adding EN signal on $memory\u_rf.regs[20]$621 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[20]).
+Adding EN signal on $memory\u_rf.regs[1]$583 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[1]).
+Adding EN signal on $memory\u_rf.regs[19]$619 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[19]).
+Adding EN signal on $memory\u_rf.regs[18]$617 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[18]).
+Adding EN signal on $memory\u_rf.regs[17]$615 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[17]).
+Adding EN signal on $memory\u_rf.regs[16]$613 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[16]).
+Adding EN signal on $memory\u_rf.regs[15]$611 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[15]).
+Adding EN signal on $memory\u_rf.regs[14]$609 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[14]).
+Adding EN signal on $memory\u_rf.regs[13]$607 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[13]).
+Adding EN signal on $memory\u_rf.regs[12]$605 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[12]).
+Adding EN signal on $memory\u_rf.regs[11]$603 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[11]).
+Adding EN signal on $memory\u_rf.regs[10]$601 ($dff) from module rv32im_core (D = \wb_result_r, Q = \u_rf.regs[10]).
+
+4.20.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 31 unused cells and 33 unused wires.
+<suppressed ~32 debug messages>
+
+4.20.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.20.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+4.20.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \rv32im_core.
+Performed a total of 0 changes.
+
+4.20.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+Removed a total of 0 cells.
+
+4.20.22. Executing OPT_SHARE pass.
+
+4.20.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+
+4.20.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+
+4.20.26. Finished OPT passes. (There is nothing left to do.)
+
+4.21. Executing TECHMAP pass (map to technology primitives).
+
+4.21.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+4.21.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $dff.
+Using extmapper simplemap for cells of type $dffe.
+Using template $paramod$2653f68ddb8eab7b1907b4a20767b72a824a7a36\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$e765c459d3029c22a22a27989e94858fd9ebfa9c\_90_shift_ops_shr_shl_sshl_sshr for cells of type $sshr.
+Using template $paramod$fbc7873bff55778c0b3173955b7e4bce1d9d6834\_90_alu for cells of type $alu.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$335cfd09f1afa8139c4aafcbbe5f361887b79c5e\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shl.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$feecc7a0dbd012970970f2858f15e786e251f677\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shr.
+Using extmapper maccmap for cells of type $macc_v2.
+  add { 1'0 \fb } * \fa (33x32 bits, signed)
+  add \fa * \fb (32x32 bits, unsigned)
+Using template $paramod$44a13d10af618e7fbe7b9aad2f6151ffcee1e2fa\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $ne.
+Using template $paramod$constmap:66d421c313e4e958be776b99540ac2de3b59fdbc$paramod$77562a466236eb4a6d905351a0995599b75075cb\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shl.
+Using template $paramod$constmap:8821c18fffc0983e3c116f2d37ada4cfa5e7a8b2$paramod$df3166ec6f473b53260035fbd0f12f64f45fa555\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shr.
+Using template $paramod$b098bc6f249c0ac91c4d6e19d54b23c285914115\_90_pmux for cells of type $pmux.
+Using template $paramod$bf2533632d512eac76dd186c0da49367e29b8e98\_90_pmux for cells of type $pmux.
+Using template $paramod$eaeb96106163dbf82031649d189817109fe07c69\_90_pmux for cells of type $pmux.
+Using template $paramod$49f1dc3dcd6d2c748486fe94c6744a34a19bbafe\_90_pmux for cells of type $pmux.
+  add \fa * \fb (32x32 bits, signed)
+Using template $paramod$9a99f3bc4ce1ca3c44f8bdb25c4000634acbeb47\_90_mod for cells of type $mod.
+Using template $paramod$59b03ae2620a41577de8da5f5c97b2919e82362b\_90_pmux for cells of type $pmux.
+Using template $paramod$9a99f3bc4ce1ca3c44f8bdb25c4000634acbeb47\_90_div for cells of type $div.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $adff.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000001000000 for cells of type $fa.
+Using template $paramod$039520c137afc9cd69dd56c3fb11a4e1fbe5f664\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011110 for cells of type $lcu.
+Using template $paramod$9a99f3bc4ce1ca3c44f8bdb25c4000634acbeb47\$__div_mod_trunc for cells of type $__div_mod_trunc.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000001000000 for cells of type $lcu.
+Running "alumacc" on wrapper $extern:wrap:$neg:Y_WIDTH=33:A_WIDTH=33:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$neg:Y_WIDTH=33:A_WIDTH=33:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$neg:Y_WIDTH=33:A_WIDTH=33:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod\$__div_mod_u\WIDTH=32'00000000000000000000000000100001 for cells of type $__div_mod_u.
+Using template $paramod$e3e2a2ae1e4d598b5e0e0be67cc1104653ecf8c1\_90_alu for cells of type $alu.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=33:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=33:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=33:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=33:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=34:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=34:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=34:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=34:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=35:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=35:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=35:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=35:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=36:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=36:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=36:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=36:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=37:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=37:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=37:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=37:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=38:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=38:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=38:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=38:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=39:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=39:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=39:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=39:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=40:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=40:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=40:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=40:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=41:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=41:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=41:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=41:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=42:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=42:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=42:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=42:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=43:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=43:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=43:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=43:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=44:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=44:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=44:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=44:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=45:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=45:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=45:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=45:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=46:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=46:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=46:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=46:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=47:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=47:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=47:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=47:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=48:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=48:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=48:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=48:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=49:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=49:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=49:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=49:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=50:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=50:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=50:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=50:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=51:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=51:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=51:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=51:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=52:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=52:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=52:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=52:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=53:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=53:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=53:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=53:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=54:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=54:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=54:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=54:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=55:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=55:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=55:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=55:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=56:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=56:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=56:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=56:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=57:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=57:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=57:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=57:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=58:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=58:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=58:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=58:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=59:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=59:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=59:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=59:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=60:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=60:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=60:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=60:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=61:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=61:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=61:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=61:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=62:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=62:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=62:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=62:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=63:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=63:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=63:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=63:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=64:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=64:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=64:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=64:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$sub:Y_WIDTH=65:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:Y_WIDTH=65:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:Y_WIDTH=65:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$ge:Y_WIDTH=1:B_WIDTH=65:A_WIDTH=33:B_SIGNED=0:A_SIGNED=0:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100001 for cells of type $lcu.
+Using template $paramod$cc6a978c1b57cdb49efcec348c88d8e28bf1a01f\_90_alu for cells of type $alu.
+Using template $paramod$66f4d26ff378933eb12ea14eb9e3e72193112f68\_90_alu for cells of type $alu.
+Using template $paramod$f14f58a9dc953225774ed36f8cd52bde0fedcb71\_90_alu for cells of type $alu.
+Using template $paramod$a7260b544fbad3ecb8c199adb8411a5a130453c9\_90_alu for cells of type $alu.
+Using template $paramod$a9242bca79862a7659b9b983a18f5ac6ea6a7433\_90_alu for cells of type $alu.
+Using template $paramod$fe592371df89fd56a552cad9e4e228d0e2157a09\_90_alu for cells of type $alu.
+Using template $paramod$6bc296dde5719e833698f3cf04d06295044d1e25\_90_alu for cells of type $alu.
+Using template $paramod$9ad7a6267efe506852f4afa25e263d668768b291\_90_alu for cells of type $alu.
+Using template $paramod$c546b4f2cb8040b2bb6ac111535cc8fd1100fe5a\_90_alu for cells of type $alu.
+Using template $paramod$d2608cab65eadf578ed22c11852183c64a4794d6\_90_alu for cells of type $alu.
+Using template $paramod$f5362d272f1bdde39b3761b64f1782fd6080f7eb\_90_alu for cells of type $alu.
+Using template $paramod$0cabc5f867fea2e697a62451b7be046b1b62b59d\_90_alu for cells of type $alu.
+Using template $paramod$032e6a5109297833d4cbed055812dc8a30e993b4\_90_alu for cells of type $alu.
+Using template $paramod$30af2f8124d6b4afcd34f31ff530ec03e76ca9b4\_90_alu for cells of type $alu.
+Using template $paramod$cc1407be07f8e1e54886ef620e63d047d1ca1813\_90_alu for cells of type $alu.
+Using template $paramod$1729bc839225b826a817c02c1748f1a83567dbfe\_90_alu for cells of type $alu.
+Using template $paramod$62de0aa059b1237474e30af7988eea99ed833be6\_90_alu for cells of type $alu.
+Using template $paramod$e2b0dd7971fc8bfe1bf8e180c1f03e586c072686\_90_alu for cells of type $alu.
+Using template $paramod$a9e266bc30aaed0abbd1dc643d6fe98d896f5104\_90_alu for cells of type $alu.
+Using template $paramod$d595eeb1c73672ceafa0c1b1297b1f11a6064d44\_90_alu for cells of type $alu.
+Using template $paramod$0db8778394e549de91682b0c3ec02f41b29e1dfe\_90_alu for cells of type $alu.
+Using template $paramod$7cd90b2bbeb7ca8ae47b510eab3671e7de2ab6cd\_90_alu for cells of type $alu.
+Using template $paramod$9d411443c1236ab4b0071355b46ac4a6f240a2cc\_90_alu for cells of type $alu.
+Using template $paramod$dde1a3927437b0fc5f67d439beed18b4c6ecb0e6\_90_alu for cells of type $alu.
+Using template $paramod$215bc039315b6c0d0dd6586da4e831ca7aefc20c\_90_alu for cells of type $alu.
+Using template $paramod$8b5556ad5869da5c406bb321a81ab650246de821\_90_alu for cells of type $alu.
+Using template $paramod$e66c230f1a34e5a2571158194ceecbf1989fdb36\_90_alu for cells of type $alu.
+Using template $paramod$f71a32ff0c95c06748789a26d2b166eec5ae6b5a\_90_alu for cells of type $alu.
+Using template $paramod$b1e65b06490a8cd5996f72ad10f3a59245ed9ba1\_90_alu for cells of type $alu.
+Using template $paramod$16b6ac4765d4deaa60b5e8a3f49cb01ff2b4f634\_90_alu for cells of type $alu.
+Using template $paramod$497fbd9bd08802bd5c1fef72c6e0a4730710d9ea\_90_alu for cells of type $alu.
+Using template $paramod$afce5005fe1872b96c3b25fa8deba299c4d92d75\_90_alu for cells of type $alu.
+Using template $paramod$c1a24180bc1daf1fb95d17515c9f4a0f6ae78486\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100010 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100111 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101000 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101010 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000101111 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110000 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110010 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000110111 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111000 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111010 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000111111 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000001000001 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~44502 debug messages>
+
+4.22. Executing OPT pass (performing simple optimizations).
+
+4.22.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module rv32im_core.
+<suppressed ~42505 debug messages>
+
+4.22.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~106737 debug messages>
+Removed a total of 35579 cells.
+
+4.22.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \rv32im_core..
+Removed 4232 unused cells and 27717 unused wires.
+<suppressed ~4233 debug messages>
+
+4.22.5. Finished fast OPT passes.
+
+4.23. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `rv32im_core'. Setting top module to rv32im_core.
+
+4.23.1. Analyzing design hierarchy..
+Top module:  \rv32im_core
+
+4.23.2. Analyzing design hierarchy..
+Top module:  \rv32im_core
+Removed 0 unused modules.
+
+4.24. Printing statistics.
+
+=== rv32im_core ===
+
+   Number of wires:               8611
+   Number of wire bits:          68557
+   Number of public wires:         126
+   Number of public wire bits:    2394
+   Number of ports:                  9
+   Number of port bits:            167
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              38458
+     $_AND_                      14958
+     $_DFFE_PN0P_                   93
+     $_DFFE_PN1P_                    3
+     $_DFFE_PP_                    992
+     $_DFF_PN0_                    113
+     $_DFF_P_                        2
+     $_MUX_                       5381
+     $_NOT_                       1272
+     $_OR_                        7120
+     $_SDFF_PP0_                   158
+     $_XOR_                       8365
+     $scopeinfo                      1
+
+4.25. Executing CHECK pass (checking for obvious problems).
+Checking module rv32im_core...
+Found and reported 0 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+5.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `\rv32im_core':
+  mapped 992 $_DFFE_PP_ cells to \sky130_fd_sc_hd__edfxtp_1 cells.
+  mapped 206 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+  mapped 3 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+  mapped 160 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+
+6. Executing ABC pass (technology mapping using ABC).
+
+6.1. Extracting gate netlist of module `\rv32im_core' to `<abc-temp-dir>/input.blif'..
+Replacing 2 occurrences of constant undef bits with constant zero bits
+Extracted 37350 gates and 38777 wires to a netlist network with 1424 inputs and 411 outputs.
+
+6.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /home/sureshvlsi/eda-tools/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.09 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/home/sureshvlsi/eda-tools/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use).  Time =     0.14 sec
+ABC: Memory =   19.85 MB. Time =     0.14 sec
+ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a211o_2 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:      156
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:      207
+ABC RESULTS:   sky130_fd_sc_hd__a21o_2 cells:      105
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:     4642
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:       73
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:      310
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__a311o_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:       95
+ABC RESULTS:   sky130_fd_sc_hd__a31o_2 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:      301
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_1 cells:       31
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:       70
+ABC RESULTS:   sky130_fd_sc_hd__and2_2 cells:      126
+ABC RESULTS:   sky130_fd_sc_hd__and3_2 cells:      233
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:     4469
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso0p_1 cells:       37
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:      762
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:      508
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:     9068
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:     2133
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:      148
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:      981
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:     5799
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:      596
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:      110
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o2111a_1 cells:      238
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:      250
+ABC RESULTS:   sky130_fd_sc_hd__o211a_1 cells:      243
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:      401
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:      784
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:     4148
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_1 cells:      420
+ABC RESULTS:   sky130_fd_sc_hd__o221a_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o221ai_1 cells:       22
+ABC RESULTS:   sky130_fd_sc_hd__o22a_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:      318
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_1 cells:      393
+ABC RESULTS:   sky130_fd_sc_hd__o311a_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:       37
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__or2_2 cells:      144
+ABC RESULTS:   sky130_fd_sc_hd__or2b_2 cells:       23
+ABC RESULTS:   sky130_fd_sc_hd__or3_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or3b_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:     1560
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:     4627
+ABC RESULTS:        internal signals:    36942
+ABC RESULTS:           input signals:     1424
+ABC RESULTS:          output signals:      411
+Removing temp directory.
+Removed 0 unused cells and 10323 unused wires.
+
+7. Executing CHECK pass (checking for obvious problems).
+Checking module rv32im_core...
+Warning: Wire rv32im_core.\pc [31] is used but has no driver.
+Warning: Wire rv32im_core.\pc [30] is used but has no driver.
+Warning: Wire rv32im_core.\pc [29] is used but has no driver.
+Warning: Wire rv32im_core.\pc [28] is used but has no driver.
+Warning: Wire rv32im_core.\pc [27] is used but has no driver.
+Warning: Wire rv32im_core.\pc [26] is used but has no driver.
+Warning: Wire rv32im_core.\pc [25] is used but has no driver.
+Warning: Wire rv32im_core.\pc [24] is used but has no driver.
+Warning: Wire rv32im_core.\pc [23] is used but has no driver.
+Warning: Wire rv32im_core.\pc [22] is used but has no driver.
+Warning: Wire rv32im_core.\pc [21] is used but has no driver.
+Warning: Wire rv32im_core.\pc [20] is used but has no driver.
+Warning: Wire rv32im_core.\pc [19] is used but has no driver.
+Warning: Wire rv32im_core.\pc [18] is used but has no driver.
+Warning: Wire rv32im_core.\pc [17] is used but has no driver.
+Warning: Wire rv32im_core.\pc [16] is used but has no driver.
+Warning: Wire rv32im_core.\pc [15] is used but has no driver.
+Warning: Wire rv32im_core.\pc [14] is used but has no driver.
+Warning: Wire rv32im_core.\pc [13] is used but has no driver.
+Warning: Wire rv32im_core.\pc [12] is used but has no driver.
+Warning: Wire rv32im_core.\pc [11] is used but has no driver.
+Warning: Wire rv32im_core.\pc [10] is used but has no driver.
+Warning: Wire rv32im_core.\pc [9] is used but has no driver.
+Warning: Wire rv32im_core.\pc [8] is used but has no driver.
+Warning: Wire rv32im_core.\pc [7] is used but has no driver.
+Warning: Wire rv32im_core.\pc [6] is used but has no driver.
+Warning: Wire rv32im_core.\pc [5] is used but has no driver.
+Warning: Wire rv32im_core.\pc [4] is used but has no driver.
+Warning: Wire rv32im_core.\pc [3] is used but has no driver.
+Warning: Wire rv32im_core.\pc [2] is used but has no driver.
+Warning: Wire rv32im_core.\pc [1] is used but has no driver.
+Warning: Wire rv32im_core.\pc [0] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wstrb [3] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wstrb [2] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wstrb [1] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wstrb [0] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [31] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [30] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [29] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [28] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [27] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [26] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [25] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [24] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [23] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [22] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [21] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [20] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [19] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [18] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [17] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [16] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [15] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [14] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [13] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [12] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [11] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [10] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [9] is used but has no driver.
+Warning: Wire rv32im_core.\dmem_wdata [8] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [7] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [6] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [5] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [4] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [3] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [2] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [1] is used but has no driver.
+Warning: Wire rv32im_core.\mem_rs2 [0] is used but has no driver.
+Warning: Wire rv32im_core.\mem_load is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [31] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [30] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [29] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [28] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [27] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [26] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [25] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [24] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [23] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [22] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [21] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [20] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [19] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [18] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [17] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [16] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [15] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [14] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [13] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [12] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [11] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [10] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [9] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [8] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [7] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [6] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [5] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [4] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [3] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [2] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [1] is used but has no driver.
+Warning: Wire rv32im_core.\mem_alu [0] is used but has no driver.
+Found and reported 101 problems.
+
+8. Printing statistics.
+
+=== rv32im_core ===
+
+   Number of wires:              44618
+   Number of wire bits:          46272
+   Number of public wires:          89
+   Number of public wire bits:    1712
+   Number of ports:                  9
+   Number of port bits:            167
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              46014
+     $scopeinfo                      1
+     sky130_fd_sc_hd__a2111o_1       1
+     sky130_fd_sc_hd__a211o_2        6
+     sky130_fd_sc_hd__a211oi_1     156
+     sky130_fd_sc_hd__a21boi_0     207
+     sky130_fd_sc_hd__a21o_2       105
+     sky130_fd_sc_hd__a21oi_1     4642
+     sky130_fd_sc_hd__a221oi_1      73
+     sky130_fd_sc_hd__a22oi_1      310
+     sky130_fd_sc_hd__a2bb2oi_1     15
+     sky130_fd_sc_hd__a311o_2        1
+     sky130_fd_sc_hd__a311oi_1      95
+     sky130_fd_sc_hd__a31o_2        10
+     sky130_fd_sc_hd__a31oi_1      301
+     sky130_fd_sc_hd__a32oi_1       31
+     sky130_fd_sc_hd__a41oi_1       70
+     sky130_fd_sc_hd__and2_2       126
+     sky130_fd_sc_hd__and3_2       233
+     sky130_fd_sc_hd__clkinv_1    4469
+     sky130_fd_sc_hd__dfrtp_1      206
+     sky130_fd_sc_hd__dfstp_2        3
+     sky130_fd_sc_hd__dfxtp_1      160
+     sky130_fd_sc_hd__edfxtp_1     992
+     sky130_fd_sc_hd__lpflow_inputiso0p_1     37
+     sky130_fd_sc_hd__maj3_1       762
+     sky130_fd_sc_hd__mux2i_1      508
+     sky130_fd_sc_hd__nand2_1     9068
+     sky130_fd_sc_hd__nand3_1     2133
+     sky130_fd_sc_hd__nand3b_1     148
+     sky130_fd_sc_hd__nand4_1      981
+     sky130_fd_sc_hd__nor2_1      5799
+     sky130_fd_sc_hd__nor3_1       596
+     sky130_fd_sc_hd__nor3b_1       13
+     sky130_fd_sc_hd__nor4_1       110
+     sky130_fd_sc_hd__nor4b_1        4
+     sky130_fd_sc_hd__o2111a_1     238
+     sky130_fd_sc_hd__o2111ai_1    250
+     sky130_fd_sc_hd__o211a_1      243
+     sky130_fd_sc_hd__o211ai_1     401
+     sky130_fd_sc_hd__o21a_1       784
+     sky130_fd_sc_hd__o21ai_0     4148
+     sky130_fd_sc_hd__o21bai_1     420
+     sky130_fd_sc_hd__o221a_2        1
+     sky130_fd_sc_hd__o221ai_1      22
+     sky130_fd_sc_hd__o22a_2         2
+     sky130_fd_sc_hd__o22ai_1      318
+     sky130_fd_sc_hd__o2bb2ai_1    393
+     sky130_fd_sc_hd__o311a_2        3
+     sky130_fd_sc_hd__o31ai_1       37
+     sky130_fd_sc_hd__o32ai_1        9
+     sky130_fd_sc_hd__o41ai_1       15
+     sky130_fd_sc_hd__or2_2        144
+     sky130_fd_sc_hd__or2b_2        23
+     sky130_fd_sc_hd__or3_2          3
+     sky130_fd_sc_hd__or3b_2         1
+     sky130_fd_sc_hd__xnor2_1     1560
+     sky130_fd_sc_hd__xor2_1      4627
+
+   Area for cell type $scopeinfo is unknown!
+
+   Chip area for module '\rv32im_core': 283571.968000
+     of which used for sequential elements: 38225.411200 (13.48%)
+
+9. Executing Verilog backend.
+
+9.1. Executing BMUXMAP pass.
+
+9.2. Executing DEMUXMAP pass.
+Dumping module `\rv32im_core'.
+
+Warnings: 101 unique messages, 101 total
+End of script. Logfile hash: b49edb3b67, CPU: user 18.08s system 1.18s, MEM: 329.26 MB peak
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+Time spent: 31% 1x abc (8 sec), 16% 1x techmap (4 sec), ...
