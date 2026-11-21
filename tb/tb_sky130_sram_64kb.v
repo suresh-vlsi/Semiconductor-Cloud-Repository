@@ -278,6 +278,72 @@ module tb_sky130_sram_64kb;
         tests = tests + 1;
         $display("PASS: data address outside SRAM rejected");
 
+
+        // Test G: instruction read accepted before same-address write.
+        $display("TEST: instruction read before data write");
+
+        @(negedge clk);
+        if_addr = 32'h00001000;
+        if_req = 1;
+
+        @(posedge clk);
+        #1;
+        @(negedge clk);
+        if_req = 0;
+        data_addr = 32'h00001000;
+        data_wdata = 32'hDEADBEEF;
+        data_wstrb = 4'b1111;
+        data_we = 1;
+        data_req = 1;
+
+        @(posedge clk);
+        #1;
+        if (!if_resp_valid || if_rdata !== 32'h99AABBCC)
+            $fatal(1, "Read-before-write ordering failed: %h", if_rdata);
+
+        @(negedge clk);
+        data_req = 0;
+        data_we = 0;
+
+        @(posedge clk);
+        #1;
+        if (!data_resp_valid)
+            $fatal(1, "Read-before-write: write response missing");
+
+        tests = tests + 1;
+        $display("PASS: earlier instruction read returned old value");
+
+        // Test H: data write accepted before same-address instruction read.
+        $display("TEST: data write before instruction read");
+
+        @(negedge clk);
+        data_addr = 32'h00001000;
+        data_wdata = 32'hFEED1234;
+        data_wstrb = 4'b1111;
+        data_we = 1;
+        data_req = 1;
+
+        @(posedge clk);
+        #1;
+        @(negedge clk);
+        data_req = 0;
+        data_we = 0;
+        if_addr = 32'h00001000;
+        if_req = 1;
+
+        @(posedge clk);
+        #1;
+        @(negedge clk);
+        if_req = 0;
+
+        @(posedge clk);
+        #1;
+        if (!if_resp_valid || if_rdata !== 32'hFEED1234)
+            $fatal(1, "Write-before-read ordering failed: %h", if_rdata);
+
+        tests = tests + 1;
+        $display("PASS: later instruction read returned new value");
+
         $display("--------------------------------------");
         $display("ALL TESTS PASSED: %0d", tests);
         $display("--------------------------------------");
