@@ -1,0 +1,19 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+
+========== OPENROAD COMMAND AVAILABILITY ==========
+get_db : NOT AVAILABLE
+get_cells : AVAILABLE
+get_pins : AVAILABLE
+get_nets : AVAILABLE
+get_full_name : AVAILABLE
+odb::dbBlock : AVAILABLE
+odb::dbInst : AVAILABLE
+odb::dbITerm : AVAILABLE
+
+========== DESIGN INFORMATION ==========
+Design: _e826a0be4f300000_p_odb__dbBlock
+
+========== CHECK COMPLETED ==========

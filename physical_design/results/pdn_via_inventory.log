@@ -1,0 +1,32 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+
+========== PDN VIA INVENTORY ==========
+
+NET: VDD
+Special-wire boxes: 268767
+Via instances: 163129
+Via types:
+  via5_6_1740_1600_1_1_1600_1600 : 960
+  via5_6_1600_1600_1_1_1600_1600 : 10171
+  via4_5_1600_480_1_4_400_400 : 50666
+  via3_4_1600_480_1_4_400_400 : 50666
+  via2_3_1600_480_1_5_320_320 : 50666
+
+NET: VSS
+Special-wire boxes: 270787
+Via instances: 164357
+Via types:
+  via5_6_1740_1600_1_1_1600_1600 : 976
+  via5_6_1600_1600_1_1_1600_1600 : 10171
+  via4_5_1600_480_1_4_400_400 : 51070
+  via3_4_1600_480_1_4_400_400 : 51070
+  via2_3_1600_480_1_5_320_320 : 51070
+
+========== TOTALS ==========
+Total special-wire boxes: 539554
+Total via instances: 327486
+
+========== INVENTORY COMPLETED ==========
