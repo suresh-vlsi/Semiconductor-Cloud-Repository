@@ -67,3 +67,23 @@ report:
 
 clean:
 	rm -f simulation_logs/*.vvp simulation_logs/*.vcd simulation_logs/*.log $(PROGDIR)/*.hex
+
+
+# SKY130 synchronous SRAM-backed SoC (set PDK_DIR to the installed sky130A root).
+SRAM_MACRO ?= $(PDK_DIR)/libs.ref/sky130_sram_macros/verilog/sky130_sram_2kbyte_1rw1r_32x512_8.v
+SRAM_RTL = rtl/regfile.v rtl/rv32im_core_sram.v rtl/pe.v rtl/systolic_array.v \
+           rtl/accel_top.v rtl/uart_tx.v rtl/sky130_sram_64kb.v rtl/soc_top_sram.v
+
+.PHONY: sram_compile sram_sim sram_test
+simulation_logs/soc_sram_sim.vvp: $(SRAM_RTL) testbench/tb_soc_sram.v $(SRAM_MACRO)
+	@mkdir -p simulation_logs
+	$(IVERILOG) -g2012 -Wall -DACCEL_N=$(ACCEL_N) -s tb_soc_sram -o $@ \
+	  testbench/tb_soc_sram.v $(SRAM_RTL) $(SRAM_MACRO)
+
+sram_compile: simulation_logs/soc_sram_sim.vvp
+
+sram_sim: simulation_logs/soc_sram_sim.vvp $(PROGDIR)/$(PROG).hex
+	$(VVP) $< +HEX=$(PROGDIR)/$(PROG).hex +TIMEOUT=1000000 | tee simulation_logs/$(PROG)_sram.log
+
+sram_test: simulation_logs/soc_sram_sim.vvp programs
+	ACCEL_N=$(ACCEL_N) $(PY) python/run_sram_regression.py
