@@ -1,0 +1,148 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+
+========== SRAM POWER PIN VERIFICATION ==========
+
+MACRO: sram_macro_0
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_1
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_10
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_11
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_12
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_13
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_14
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_15
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_16
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_17
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_18
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_19
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_2
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_20
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_21
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_22
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_23
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_24
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_25
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_26
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_27
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_28
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_29
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_3
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_30
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_31
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_4
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_5
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_6
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_7
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_8
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+MACRO: sram_macro_9
+  vccd1 -> VDD
+  vssd1 -> VSS
+
+========== SUMMARY ==========
+SRAM macros found       : 32
+VDD terminals found     : 32
+VDD correctly connected: 32
+VSS terminals found     : 32
+VSS correctly connected: 32
+Connection errors       : 0
+
+========== POWER GRID CONNECTIVITY ==========
+[INFO PSM-0040] All shapes on net VDD are connected.
+[INFO PSM-0040] All shapes on net VSS are connected.
+
+========== CHECK COMPLETED ==========

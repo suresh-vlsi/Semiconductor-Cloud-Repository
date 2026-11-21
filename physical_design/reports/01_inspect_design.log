@@ -1,0 +1,43 @@
+OpenROAD unknown
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd.tlef, created 13 layers, 25 vias
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd_merged.lef, created 441 library cells
+[INFO ODB-0227] LEF file: /pdk/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef, created 1 library cells
+========== LINKED DESIGN ==========
+Top: soc_top_sram
+SRAM instances found: 32
+SRAM: _10b1387643730000_p_Instance
+SRAM: _90b1387643730000_p_Instance
+SRAM: _10b2387643730000_p_Instance
+SRAM: _90b2387643730000_p_Instance
+SRAM: _10b3387643730000_p_Instance
+SRAM: _90b3387643730000_p_Instance
+SRAM: _10b4387643730000_p_Instance
+SRAM: _90b4387643730000_p_Instance
+SRAM: _10b5387643730000_p_Instance
+SRAM: _90b5387643730000_p_Instance
+SRAM: _10b6387643730000_p_Instance
+SRAM: _90b6387643730000_p_Instance
+SRAM: _10b7387643730000_p_Instance
+SRAM: _90b7387643730000_p_Instance
+SRAM: _10b8387643730000_p_Instance
+SRAM: _90b8387643730000_p_Instance
+SRAM: _10b9387643730000_p_Instance
+SRAM: _90b9387643730000_p_Instance
+SRAM: _10ba387643730000_p_Instance
+SRAM: _90ba387643730000_p_Instance
+SRAM: _10bb387643730000_p_Instance
+SRAM: _90bb387643730000_p_Instance
+SRAM: _10bc387643730000_p_Instance
+SRAM: _90bc387643730000_p_Instance
+SRAM: _10bd387643730000_p_Instance
+SRAM: _90bd387643730000_p_Instance
+SRAM: _10be387643730000_p_Instance
+SRAM: _90be387643730000_p_Instance
+SRAM: _10bf387643730000_p_Instance
+SRAM: _90bf387643730000_p_Instance
+SRAM: _10c0387643730000_p_Instance
+SRAM: _90c0387643730000_p_Instance
+========== DESIGN IMPORT PASSED ==========

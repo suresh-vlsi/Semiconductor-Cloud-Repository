@@ -1,0 +1,52 @@
+OpenROAD unknown
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd.tlef, created 13 layers, 25 vias
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd_merged.lef, created 441 library cells
+[INFO ODB-0227] LEF file: /pdk/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef, created 1 library cells
+[WARNING IFP-0028] Core area lower left (200.000, 200.000) snapped to (200.100, 201.280).
+[INFO IFP-0001] Added 1433 rows of 9347 site unithd.
+[INFO IFP-0100] Die BBox:  (  0.000  0.000 ) ( 4700.000 4300.000 ) um
+[INFO IFP-0101] Core BBox: ( 200.100 201.280 ) ( 4499.720 4099.040 ) um
+[INFO IFP-0102] Core area:                     16758886.851 um^2
+[INFO IFP-0103] Total instances area:           9452011.258 um^2
+[INFO IFP-0104] Effective utilization:                0.564
+[INFO IFP-0105] Number of instances:                  44001
+
+========== INSTANCE COLLECTION ==========
+Count: 32
+STA name: u_sram.SRAM_BANKS[0].sram_macro
+STA name: u_sram.SRAM_BANKS[10].sram_macro
+STA name: u_sram.SRAM_BANKS[11].sram_macro
+STA name: u_sram.SRAM_BANKS[12].sram_macro
+STA name: u_sram.SRAM_BANKS[13].sram_macro
+STA name: u_sram.SRAM_BANKS[14].sram_macro
+STA name: u_sram.SRAM_BANKS[15].sram_macro
+STA name: u_sram.SRAM_BANKS[16].sram_macro
+STA name: u_sram.SRAM_BANKS[17].sram_macro
+STA name: u_sram.SRAM_BANKS[18].sram_macro
+STA name: u_sram.SRAM_BANKS[19].sram_macro
+STA name: u_sram.SRAM_BANKS[1].sram_macro
+STA name: u_sram.SRAM_BANKS[20].sram_macro
+STA name: u_sram.SRAM_BANKS[21].sram_macro
+STA name: u_sram.SRAM_BANKS[22].sram_macro
+STA name: u_sram.SRAM_BANKS[23].sram_macro
+STA name: u_sram.SRAM_BANKS[24].sram_macro
+STA name: u_sram.SRAM_BANKS[25].sram_macro
+STA name: u_sram.SRAM_BANKS[26].sram_macro
+STA name: u_sram.SRAM_BANKS[27].sram_macro
+STA name: u_sram.SRAM_BANKS[28].sram_macro
+STA name: u_sram.SRAM_BANKS[29].sram_macro
+STA name: u_sram.SRAM_BANKS[2].sram_macro
+STA name: u_sram.SRAM_BANKS[30].sram_macro
+STA name: u_sram.SRAM_BANKS[31].sram_macro
+STA name: u_sram.SRAM_BANKS[3].sram_macro
+STA name: u_sram.SRAM_BANKS[4].sram_macro
+STA name: u_sram.SRAM_BANKS[5].sram_macro
+STA name: u_sram.SRAM_BANKS[6].sram_macro
+STA name: u_sram.SRAM_BANKS[7].sram_macro
+STA name: u_sram.SRAM_BANKS[8].sram_macro
+STA name: u_sram.SRAM_BANKS[9].sram_macro
+
+DEF exported.

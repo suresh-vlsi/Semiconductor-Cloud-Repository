@@ -1,0 +1,104 @@
+
+16. Printing statistics.
+
+=== soc_top_sram ===
+
+   Number of wires:              21829
+   Number of wire bits:          29291
+   Number of public wires:         481
+   Number of public wire bits:    7756
+   Number of ports:                  6
+   Number of port bits:             68
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              24587
+     $scopeinfo                     23
+     sky130_fd_sc_hd__a2111o_1       2
+     sky130_fd_sc_hd__a2111oi_0     19
+     sky130_fd_sc_hd__a211o_1       23
+     sky130_fd_sc_hd__a211oi_1     132
+     sky130_fd_sc_hd__a21bo_1        2
+     sky130_fd_sc_hd__a21boi_0      65
+     sky130_fd_sc_hd__a21o_1       120
+     sky130_fd_sc_hd__a21oi_1     2055
+     sky130_fd_sc_hd__a221o_1       45
+     sky130_fd_sc_hd__a221oi_1     113
+     sky130_fd_sc_hd__a222oi_1     492
+     sky130_fd_sc_hd__a22o_1       367
+     sky130_fd_sc_hd__a22oi_1      375
+     sky130_fd_sc_hd__a2bb2o_1       2
+     sky130_fd_sc_hd__a2bb2oi_1     14
+     sky130_fd_sc_hd__a311o_1       10
+     sky130_fd_sc_hd__a311oi_1      27
+     sky130_fd_sc_hd__a31o_1        24
+     sky130_fd_sc_hd__a31oi_1      158
+     sky130_fd_sc_hd__a32o_1        95
+     sky130_fd_sc_hd__a32oi_1       40
+     sky130_fd_sc_hd__a41o_1         3
+     sky130_fd_sc_hd__a41oi_1        2
+     sky130_fd_sc_hd__and2_0       399
+     sky130_fd_sc_hd__and3_1       209
+     sky130_fd_sc_hd__and3b_1        3
+     sky130_fd_sc_hd__and4_1        46
+     sky130_fd_sc_hd__and4b_1        2
+     sky130_fd_sc_hd__clkinv_1     429
+     sky130_fd_sc_hd__dfrtp_1     1194
+     sky130_fd_sc_hd__dfstp_2       14
+     sky130_fd_sc_hd__dfxtp_1      160
+     sky130_fd_sc_hd__edfxtp_1    1413
+     sky130_fd_sc_hd__lpflow_inputiso1p_1    349
+     sky130_fd_sc_hd__lpflow_isobufsrc_1    352
+     sky130_fd_sc_hd__maj3_1       904
+     sky130_fd_sc_hd__mux2_1        93
+     sky130_fd_sc_hd__mux2i_1      324
+     sky130_fd_sc_hd__mux4_2       490
+     sky130_fd_sc_hd__nand2_1     3204
+     sky130_fd_sc_hd__nand2b_1     277
+     sky130_fd_sc_hd__nand3_1      514
+     sky130_fd_sc_hd__nand3b_1      17
+     sky130_fd_sc_hd__nand4_1      364
+     sky130_fd_sc_hd__nand4b_1      10
+     sky130_fd_sc_hd__nor2_1      2217
+     sky130_fd_sc_hd__nor2b_1      108
+     sky130_fd_sc_hd__nor3_1       326
+     sky130_fd_sc_hd__nor3b_1       37
+     sky130_fd_sc_hd__nor4_1        61
+     sky130_fd_sc_hd__nor4b_1       17
+     sky130_fd_sc_hd__nor4bb_1       1
+     sky130_fd_sc_hd__o2111a_1      14
+     sky130_fd_sc_hd__o2111ai_1      9
+     sky130_fd_sc_hd__o211a_1       12
+     sky130_fd_sc_hd__o211ai_1     112
+     sky130_fd_sc_hd__o21a_1       129
+     sky130_fd_sc_hd__o21ai_0     1500
+     sky130_fd_sc_hd__o21ba_1        3
+     sky130_fd_sc_hd__o21bai_1      37
+     sky130_fd_sc_hd__o221ai_1      45
+     sky130_fd_sc_hd__o22a_1        66
+     sky130_fd_sc_hd__o22ai_1      207
+     sky130_fd_sc_hd__o2bb2ai_1      8
+     sky130_fd_sc_hd__o311a_1        6
+     sky130_fd_sc_hd__o311ai_0      17
+     sky130_fd_sc_hd__o31a_1        34
+     sky130_fd_sc_hd__o31ai_1      103
+     sky130_fd_sc_hd__o32a_1         4
+     sky130_fd_sc_hd__o32ai_1       11
+     sky130_fd_sc_hd__o41a_1         1
+     sky130_fd_sc_hd__o41ai_1        1
+     sky130_fd_sc_hd__or3_1        152
+     sky130_fd_sc_hd__or3b_1        17
+     sky130_fd_sc_hd__or4_1         18
+     sky130_fd_sc_hd__or4b_1         1
+     sky130_fd_sc_hd__xnor2_1     2690
+     sky130_fd_sc_hd__xnor3_1      199
+     sky130_fd_sc_hd__xor2_1      1333
+     sky130_fd_sc_hd__xor3_1        84
+     sky130_sram_2kbyte_1rw1r_32x512_8     32
+
+   Area for cell type $scopeinfo is unknown!
+   Area for cell type \sky130_sram_2kbyte_1rw1r_32x512_8 is unknown!
+
+   Chip area for module '\soc_top_sram': 225984.236800
+     of which used for sequential elements: 75880.275200 (33.58%)
+

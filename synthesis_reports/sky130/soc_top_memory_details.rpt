@@ -1,0 +1,1124 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+-- Running command `
+read_verilog rtl/regfile.v rtl/rv32im_core.v rtl/pe.v rtl/systolic_array.v rtl/accel_top.v rtl/uart_tx.v rtl/soc_top.v
+hierarchy -check -top soc_top
+proc
+opt
+memory_collect
+select -module soc_top
+dump t:$mem_v2
+' --
+
+1. Executing Verilog-2005 frontend: rtl/regfile.v
+Parsing Verilog input from `rtl/regfile.v' to AST representation.
+Generating RTLIL representation for module `\regfile'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/rv32im_core.v
+Parsing Verilog input from `rtl/rv32im_core.v' to AST representation.
+Generating RTLIL representation for module `\rv32im_core'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/pe.v
+Parsing Verilog input from `rtl/pe.v' to AST representation.
+Generating RTLIL representation for module `\pe'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/systolic_array.v
+Parsing Verilog input from `rtl/systolic_array.v' to AST representation.
+Generating RTLIL representation for module `\systolic_array'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: rtl/accel_top.v
+Parsing Verilog input from `rtl/accel_top.v' to AST representation.
+Generating RTLIL representation for module `\accel_top'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: rtl/uart_tx.v
+Parsing Verilog input from `rtl/uart_tx.v' to AST representation.
+Generating RTLIL representation for module `\uart_tx'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: rtl/soc_top.v
+Parsing Verilog input from `rtl/soc_top.v' to AST representation.
+Generating RTLIL representation for module `\soc_top'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     \accel_top
+Used module:         \systolic_array
+Used module:             \pe
+Used module:     \uart_tx
+Used module:     \rv32im_core
+Used module:         \regfile
+Parameter \N = 4
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\systolic_array'.
+Parameter \N = 4
+Generating RTLIL representation for module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+Parameter \N = 4
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\accel_top'.
+Parameter \N = 4
+Generating RTLIL representation for module `$paramod\accel_top\N=s32'00000000000000000000000000000100'.
+Parameter \CLKS_PER_BIT = 434
+
+8.4. Executing AST frontend in derive mode using pre-parsed AST for module `\uart_tx'.
+Parameter \CLKS_PER_BIT = 434
+Generating RTLIL representation for module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010'.
+
+8.5. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\accel_top\N=s32'00000000000000000000000000000100
+Used module:         \systolic_array
+Used module:             \pe
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010
+Used module:     \rv32im_core
+Used module:         \regfile
+Parameter \N = 4
+Found cached RTLIL representation for module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+
+8.6. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\accel_top\N=s32'00000000000000000000000000000100
+Used module:         $paramod\systolic_array\N=s32'00000000000000000000000000000100
+Used module:             \pe
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010
+Used module:     \rv32im_core
+Used module:         \regfile
+
+8.7. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\accel_top\N=s32'00000000000000000000000000000100
+Used module:         $paramod\systolic_array\N=s32'00000000000000000000000000000100
+Used module:             \pe
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010
+Used module:     \rv32im_core
+Used module:         \regfile
+Removing unused module `\uart_tx'.
+Removing unused module `\accel_top'.
+Removing unused module `\systolic_array'.
+Removed 3 unused modules.
+
+9. Executing PROC pass (convert processes to netlists).
+
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 5 switch rules as full_case in process $proc$rtl/soc_top.v:101$442 in module soc_top.
+Marked 1 switch rules as full_case in process $proc$rtl/soc_top.v:79$432 in module soc_top.
+Marked 5 switch rules as full_case in process $proc$rtl/soc_top.v:52$417 in module soc_top.
+Marked 4 switch rules as full_case in process $proc$rtl/uart_tx.v:19$682 in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+Marked 4 switch rules as full_case in process $proc$rtl/accel_top.v:84$675 in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Marked 4 switch rules as full_case in process $proc$rtl/accel_top.v:64$610 in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Marked 3 switch rules as full_case in process $proc$rtl/accel_top.v:43$603 in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Marked 12 switch rules as full_case in process $proc$rtl/accel_top.v:27$457 in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Marked 2 switch rules as full_case in process $proc$rtl/pe.v:16$160 in module pe.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:252$156 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:238$155 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:227$150 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:211$144 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:196$132 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:178$121 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:152$96 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:112$66 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/rv32im_core.v:71$41 in module rv32im_core.
+Marked 2 switch rules as full_case in process $proc$rtl/rv32im_core.v:41$27 in module rv32im_core.
+Marked 2 switch rules as full_case in process $proc$rtl/rv32im_core.v:34$23 in module rv32im_core.
+Marked 1 switch rules as full_case in process $proc$rtl/regfile.v:17$2 in module regfile.
+Removed a total of 0 dead cases.
+
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 32 redundant assignments.
+Promoted 37 assignments to connections.
+
+9.4. Executing PROC_INIT pass (extract init attributes).
+
+9.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\soc_top.$proc$rtl/soc_top.v:79$432'.
+Found async reset \rst_n in `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+Found async reset \rst_n in `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+Found async reset \rst_n in `\pe.$proc$rtl/pe.v:16$160'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Found async reset \rst_n in `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~53 debug messages>
+
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\soc_top.$proc$rtl/soc_top.v:101$442'.
+     1/5: $5\rd[31:0]
+     2/5: $4\rd[31:0]
+     3/5: $3\rd[31:0]
+     4/5: $2\rd[31:0]
+     5/5: $1\rd[31:0]
+Creating decoders for process `\soc_top.$proc$rtl/soc_top.v:79$432'.
+     1/4: $0\cycle_cnt[31:0]
+     2/4: $0\gpio_r[31:0]
+     3/4: $0\sim_code[31:0]
+     4/4: $0\sim_done[0:0]
+Creating decoders for process `\soc_top.$proc$rtl/soc_top.v:52$417'.
+     1/11: $1\mem_word[31:0] [31:24]
+     2/11: $4\mem_word[23:16]
+     3/11: $3\mem_word[15:8]
+     4/11: $2\mem_word[7:0]
+     5/11: $1$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$425
+     6/11: $1$memwr$\mem$rtl/soc_top.v:59$409_DATA[31:0]$424
+     7/11: $1$memwr$\mem$rtl/soc_top.v:59$409_ADDR[13:0]$423
+     8/11: $1\mem_word[31:0] [23:16]
+     9/11: $1\mem_word[31:0] [15:8]
+    10/11: $1\mem_word[31:0] [7:0]
+    11/11: $5\mem_word[31:24]
+Creating decoders for process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+     1/5: $0\active[0:0]
+     2/5: $0\cnt[15:0]
+     3/5: $0\bitcnt[3:0]
+     4/5: $0\shreg[9:0]
+     5/5: $0\tx[0:0]
+Creating decoders for process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:84$675'.
+     1/4: $4\rdata[31:0]
+     2/4: $3\rdata[31:0]
+     3/4: $2\rdata[31:0]
+     4/4: $1\rdata[31:0]
+Creating decoders for process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+     1/8: $4\b_edge[31:24]
+     2/8: $4\a_edge[31:24]
+     3/8: $3\b_edge[23:16]
+     4/8: $3\a_edge[23:16]
+     5/8: $2\b_edge[15:8]
+     6/8: $2\a_edge[15:8]
+     7/8: $1\b_edge[7:0]
+     8/8: $1\a_edge[7:0]
+Creating decoders for process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+     1/3: $0\done[0:0]
+     2/3: $0\t[7:0]
+     3/3: $0\state[1:0]
+Creating decoders for process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+     1/32: $8$lookahead\b_flat$456[127:0]$589
+     2/32: $2$bitselwrite$pos$rtl/accel_top.v:31$454[31:0]$588
+     3/32: $8$lookahead\a_flat$455[127:0]$576
+     4/32: $2$bitselwrite$pos$rtl/accel_top.v:30$453[31:0]$575
+     5/32: $7$lookahead\b_flat$456[127:0]$573
+     6/32: $1$bitselwrite$pos$rtl/accel_top.v:31$454[31:0]$571
+     7/32: $7$lookahead\a_flat$455[127:0]$572
+     8/32: $1$bitselwrite$pos$rtl/accel_top.v:30$453[31:0]$570
+     9/32: $6$lookahead\b_flat$456[127:0]$556
+    10/32: $2$bitselwrite$pos$rtl/accel_top.v:31$452[31:0]$555
+    11/32: $6$lookahead\a_flat$455[127:0]$543
+    12/32: $2$bitselwrite$pos$rtl/accel_top.v:30$451[31:0]$542
+    13/32: $5$lookahead\b_flat$456[127:0]$540
+    14/32: $1$bitselwrite$pos$rtl/accel_top.v:31$452[31:0]$538
+    15/32: $5$lookahead\a_flat$455[127:0]$539
+    16/32: $1$bitselwrite$pos$rtl/accel_top.v:30$451[31:0]$537
+    17/32: $4$lookahead\b_flat$456[127:0]$523
+    18/32: $2$bitselwrite$pos$rtl/accel_top.v:31$450[31:0]$522
+    19/32: $4$lookahead\a_flat$455[127:0]$510
+    20/32: $2$bitselwrite$pos$rtl/accel_top.v:30$449[31:0]$509
+    21/32: $3$lookahead\b_flat$456[127:0]$507
+    22/32: $1$bitselwrite$pos$rtl/accel_top.v:31$450[31:0]$505
+    23/32: $3$lookahead\a_flat$455[127:0]$506
+    24/32: $1$bitselwrite$pos$rtl/accel_top.v:30$449[31:0]$504
+    25/32: $2$lookahead\b_flat$456[127:0]$490
+    26/32: $2$bitselwrite$pos$rtl/accel_top.v:31$448[31:0]$489
+    27/32: $2$lookahead\a_flat$455[127:0]$477
+    28/32: $2$bitselwrite$pos$rtl/accel_top.v:30$447[31:0]$476
+    29/32: $1$lookahead\b_flat$456[127:0]$474
+    30/32: $1$bitselwrite$pos$rtl/accel_top.v:31$448[31:0]$472
+    31/32: $1$lookahead\a_flat$455[127:0]$473
+    32/32: $1$bitselwrite$pos$rtl/accel_top.v:30$447[31:0]$471
+Creating decoders for process `\pe.$proc$rtl/pe.v:16$160'.
+     1/3: $0\b_out[7:0]
+     2/3: $0\a_out[7:0]
+     3/3: $0\acc[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+     1/3: $0\wb_we_r[0:0]
+     2/3: $0\wb_rd_r[4:0]
+     3/3: $0\wb_result_r[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+     1/1: $1\load_data[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+     1/1: $1\wstrb_r[3:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+     1/7: $0\mem_store[0:0]
+     2/7: $0\mem_load[0:0]
+     3/7: $0\mem_we[0:0]
+     4/7: $0\mem_f3[2:0]
+     5/7: $0\mem_rd[4:0]
+     6/7: $0\mem_rs2[31:0]
+     7/7: $0\mem_alu[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+     1/1: $1\br_taken[0:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+     1/1: $1\md_out[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+     1/1: $1\alu_out[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+     1/19: $0\ex_a_sel[1:0]
+     2/19: $0\ex_b_imm[0:0]
+     3/19: $0\ex_muldiv[0:0]
+     4/19: $0\ex_jalr[0:0]
+     5/19: $0\ex_jal[0:0]
+     6/19: $0\ex_branch[0:0]
+     7/19: $0\ex_store[0:0]
+     8/19: $0\ex_load[0:0]
+     9/19: $0\ex_we[0:0]
+    10/19: $0\ex_alt[0:0]
+    11/19: $0\ex_alu_f3[2:0]
+    12/19: $0\ex_f3[2:0]
+    13/19: $0\ex_rs2[4:0]
+    14/19: $0\ex_rs1[4:0]
+    15/19: $0\ex_rd[4:0]
+    16/19: $0\ex_imm[31:0]
+    17/19: $0\ex_rs2v[31:0]
+    18/19: $0\ex_rs1v[31:0]
+    19/19: $0\ex_pc[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+     1/1: $1\imm[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+     1/2: $0\id_instr[31:0]
+     2/2: $0\id_pc[31:0]
+Creating decoders for process `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+     1/1: $0\pc[31:0]
+Creating decoders for process `\regfile.$proc$rtl/regfile.v:17$2'.
+     1/3: $1$memwr$\regs$rtl/regfile.v:18$1_EN[31:0]$10
+     2/3: $1$memwr$\regs$rtl/regfile.v:18$1_DATA[31:0]$9
+     3/3: $1$memwr$\regs$rtl/regfile.v:18$1_ADDR[4:0]$8
+
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\soc_top.\rd' from process `\soc_top.$proc$rtl/soc_top.v:101$442'.
+No latch inferred for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\rdata' from process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:84$675'.
+No latch inferred for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\a_edge' from process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+No latch inferred for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\b_edge' from process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+No latch inferred for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\ii' from process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+No latch inferred for signal `\rv32im_core.\load_data' from process `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+No latch inferred for signal `\rv32im_core.\wstrb_r' from process `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+No latch inferred for signal `\rv32im_core.\br_taken' from process `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+No latch inferred for signal `\rv32im_core.\md_out' from process `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+No latch inferred for signal `\rv32im_core.\alu_out' from process `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+No latch inferred for signal `\rv32im_core.\imm' from process `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\soc_top.\sim_done' using process `\soc_top.$proc$rtl/soc_top.v:79$432'.
+  created $adff cell `$procdff$1193' with positive edge clock and positive level reset.
+Creating register for signal `\soc_top.\sim_code' using process `\soc_top.$proc$rtl/soc_top.v:79$432'.
+  created $adff cell `$procdff$1198' with positive edge clock and positive level reset.
+Creating register for signal `\soc_top.\gpio_r' using process `\soc_top.$proc$rtl/soc_top.v:79$432'.
+  created $adff cell `$procdff$1203' with positive edge clock and positive level reset.
+Creating register for signal `\soc_top.\cycle_cnt' using process `\soc_top.$proc$rtl/soc_top.v:79$432'.
+  created $adff cell `$procdff$1208' with positive edge clock and positive level reset.
+Creating register for signal `\soc_top.\mem_word' using process `\soc_top.$proc$rtl/soc_top.v:52$417'.
+  created $dff cell `$procdff$1209' with positive edge clock.
+Creating register for signal `\soc_top.$memwr$\mem$rtl/soc_top.v:59$409_ADDR' using process `\soc_top.$proc$rtl/soc_top.v:52$417'.
+  created $dff cell `$procdff$1210' with positive edge clock.
+Creating register for signal `\soc_top.$memwr$\mem$rtl/soc_top.v:59$409_DATA' using process `\soc_top.$proc$rtl/soc_top.v:52$417'.
+  created $dff cell `$procdff$1211' with positive edge clock.
+Creating register for signal `\soc_top.$memwr$\mem$rtl/soc_top.v:59$409_EN' using process `\soc_top.$proc$rtl/soc_top.v:52$417'.
+  created $dff cell `$procdff$1212' with positive edge clock.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.\tx' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+  created $adff cell `$procdff$1217' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.\shreg' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+  created $adff cell `$procdff$1222' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.\bitcnt' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+  created $adff cell `$procdff$1227' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.\cnt' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+  created $adff cell `$procdff$1232' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.\active' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+  created $adff cell `$procdff$1237' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\state' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+  created $adff cell `$procdff$1242' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\t' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+  created $adff cell `$procdff$1247' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\done' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+  created $adff cell `$procdff$1252' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\a_flat' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1253' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\b_flat' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1254' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.\bb' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1255' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:30$447' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1256' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:31$448' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1257' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:30$449' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1258' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:31$450' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1259' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:30$451' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1260' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:31$452' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1261' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:30$453' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1262' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$bitselwrite$pos$rtl/accel_top.v:31$454' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1263' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$lookahead\a_flat$455' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1264' with positive edge clock.
+Creating register for signal `$paramod\accel_top\N=s32'00000000000000000000000000000100.$lookahead\b_flat$456' using process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+  created $dff cell `$procdff$1265' with positive edge clock.
+Creating register for signal `\pe.\a_out' using process `\pe.$proc$rtl/pe.v:16$160'.
+  created $adff cell `$procdff$1270' with positive edge clock and positive level reset.
+Creating register for signal `\pe.\b_out' using process `\pe.$proc$rtl/pe.v:16$160'.
+  created $adff cell `$procdff$1275' with positive edge clock and positive level reset.
+Creating register for signal `\pe.\acc' using process `\pe.$proc$rtl/pe.v:16$160'.
+  created $adff cell `$procdff$1280' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\wb_result_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$1285' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\wb_rd_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$1290' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\wb_we_r' using process `\rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+  created $adff cell `$procdff$1295' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_alu' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1300' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_rs2' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1305' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_rd' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1310' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1315' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_we' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1320' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_load' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1325' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\mem_store' using process `\rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+  created $adff cell `$procdff$1330' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\ex_pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1331' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs1v' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1332' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs2v' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1333' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_imm' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1334' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rd' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1335' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs1' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1336' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_rs2' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1337' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1338' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_alu_f3' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1339' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_alt' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1340' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_we' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1341' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_load' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1342' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_store' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1343' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_branch' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1344' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_jal' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1345' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_jalr' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1346' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_muldiv' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1347' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_b_imm' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1348' with positive edge clock.
+Creating register for signal `\rv32im_core.\ex_a_sel' using process `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+  created $dff cell `$procdff$1349' with positive edge clock.
+Creating register for signal `\rv32im_core.\id_pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+  created $adff cell `$procdff$1354' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\id_instr' using process `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+  created $adff cell `$procdff$1359' with positive edge clock and positive level reset.
+Creating register for signal `\rv32im_core.\pc' using process `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+  created $adff cell `$procdff$1364' with positive edge clock and positive level reset.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_ADDR' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$1365' with positive edge clock.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_DATA' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$1366' with positive edge clock.
+Creating register for signal `\regfile.$memwr$\regs$rtl/regfile.v:18$1_EN' using process `\regfile.$proc$rtl/regfile.v:17$2'.
+  created $dff cell `$procdff$1367' with positive edge clock.
+
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 5 empty switches in `\soc_top.$proc$rtl/soc_top.v:101$442'.
+Removing empty process `soc_top.$proc$rtl/soc_top.v:101$442'.
+Found and cleaned up 2 empty switches in `\soc_top.$proc$rtl/soc_top.v:79$432'.
+Removing empty process `soc_top.$proc$rtl/soc_top.v:79$432'.
+Found and cleaned up 5 empty switches in `\soc_top.$proc$rtl/soc_top.v:52$417'.
+Removing empty process `soc_top.$proc$rtl/soc_top.v:52$417'.
+Found and cleaned up 4 empty switches in `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+Removing empty process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.$proc$rtl/uart_tx.v:19$682'.
+Found and cleaned up 4 empty switches in `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:84$675'.
+Removing empty process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:84$675'.
+Found and cleaned up 4 empty switches in `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+Removing empty process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:64$610'.
+Found and cleaned up 3 empty switches in `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+Removing empty process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:43$603'.
+Found and cleaned up 12 empty switches in `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+Removing empty process `$paramod\accel_top\N=s32'00000000000000000000000000000100.$proc$rtl/accel_top.v:27$457'.
+Found and cleaned up 2 empty switches in `\pe.$proc$rtl/pe.v:16$160'.
+Removing empty process `pe.$proc$rtl/pe.v:16$160'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:252$156'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:238$155'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:227$150'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:211$144'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:196$132'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:178$121'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:152$96'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:112$66'.
+Found and cleaned up 1 empty switch in `\rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:71$41'.
+Found and cleaned up 2 empty switches in `\rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:41$27'.
+Found and cleaned up 2 empty switches in `\rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+Removing empty process `rv32im_core.$proc$rtl/rv32im_core.v:34$23'.
+Found and cleaned up 1 empty switch in `\regfile.$proc$rtl/regfile.v:17$2'.
+Removing empty process `regfile.$proc$rtl/regfile.v:17$2'.
+Cleaned up 53 empty switches.
+
+9.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module soc_top.
+<suppressed ~11 debug messages>
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+<suppressed ~15 debug messages>
+Optimizing module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+<suppressed ~13 debug messages>
+Optimizing module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+Optimizing module pe.
+<suppressed ~6 debug messages>
+Optimizing module rv32im_core.
+<suppressed ~42 debug messages>
+Optimizing module regfile.
+<suppressed ~3 debug messages>
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module soc_top.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+Optimizing module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+<suppressed ~67 debug messages>
+Optimizing module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+Optimizing module pe.
+Optimizing module rv32im_core.
+Optimizing module regfile.
+
+10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\soc_top'.
+<suppressed ~21 debug messages>
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010'.
+<suppressed ~15 debug messages>
+Finding identical cells in module `$paramod\accel_top\N=s32'00000000000000000000000000000100'.
+<suppressed ~207 debug messages>
+Finding identical cells in module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\pe'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~111 debug messages>
+Finding identical cells in module `\regfile'.
+Removed a total of 120 cells.
+
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$785.
+    dead port 2/2 on $mux $procmux$761.
+    dead port 2/2 on $mux $procmux$755.
+    dead port 2/2 on $mux $procmux$749.
+    dead port 1/2 on $mux $procmux$731.
+    dead port 1/2 on $mux $procmux$725.
+    dead port 1/2 on $mux $procmux$722.
+    dead port 1/2 on $mux $procmux$716.
+    dead port 1/2 on $mux $procmux$713.
+    dead port 1/2 on $mux $procmux$710.
+    dead port 1/2 on $mux $procmux$704.
+    dead port 1/2 on $mux $procmux$701.
+    dead port 1/2 on $mux $procmux$698.
+    dead port 1/2 on $mux $procmux$695.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$791: \active -> 1'1
+      Replacing known input bits on port A of cell $procmux$789: \active -> 1'1
+      Replacing known input bits on port A of cell $procmux$794: \active -> 1'0
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$854.
+    dead port 2/2 on $mux $procmux$1034.
+    dead port 2/2 on $mux $procmux$847.
+    dead port 1/2 on $mux $procmux$845.
+    dead port 2/2 on $mux $procmux$837.
+    dead port 1/2 on $mux $procmux$1028.
+    dead port 2/2 on $mux $procmux$1028.
+    dead port 1/2 on $mux $procmux$1026.
+    dead port 2/2 on $mux $procmux$1026.
+    dead port 2/2 on $mux $procmux$1022.
+    dead port 1/2 on $mux $procmux$1016.
+    dead port 2/2 on $mux $procmux$1016.
+    dead port 1/2 on $mux $procmux$1010.
+    dead port 2/2 on $mux $procmux$1010.
+    dead port 1/2 on $mux $procmux$1004.
+    dead port 2/2 on $mux $procmux$1004.
+    dead port 1/2 on $mux $procmux$1002.
+    dead port 2/2 on $mux $procmux$1002.
+    dead port 2/2 on $mux $procmux$998.
+    dead port 1/2 on $mux $procmux$992.
+    dead port 2/2 on $mux $procmux$992.
+    dead port 1/2 on $mux $procmux$990.
+    dead port 2/2 on $mux $procmux$990.
+    dead port 2/2 on $mux $procmux$986.
+    dead port 1/2 on $mux $procmux$980.
+    dead port 2/2 on $mux $procmux$980.
+    dead port 1/2 on $mux $procmux$974.
+    dead port 2/2 on $mux $procmux$974.
+    dead port 1/2 on $mux $procmux$1052.
+    dead port 2/2 on $mux $procmux$1052.
+    dead port 1/2 on $mux $procmux$968.
+    dead port 2/2 on $mux $procmux$968.
+    dead port 1/2 on $mux $procmux$966.
+    dead port 2/2 on $mux $procmux$966.
+    dead port 2/2 on $mux $procmux$962.
+    dead port 1/2 on $mux $procmux$956.
+    dead port 2/2 on $mux $procmux$956.
+    dead port 1/2 on $mux $procmux$1040.
+    dead port 2/2 on $mux $procmux$1040.
+    dead port 1/2 on $mux $procmux$954.
+    dead port 2/2 on $mux $procmux$954.
+    dead port 2/2 on $mux $procmux$950.
+    dead port 1/2 on $mux $procmux$944.
+    dead port 2/2 on $mux $procmux$944.
+    dead port 1/2 on $mux $procmux$938.
+    dead port 2/2 on $mux $procmux$938.
+    dead port 1/2 on $mux $procmux$932.
+    dead port 2/2 on $mux $procmux$932.
+    dead port 1/2 on $mux $procmux$930.
+    dead port 2/2 on $mux $procmux$930.
+    dead port 2/2 on $mux $procmux$926.
+    dead port 1/2 on $mux $procmux$920.
+    dead port 2/2 on $mux $procmux$920.
+    dead port 1/2 on $mux $procmux$918.
+    dead port 2/2 on $mux $procmux$918.
+    dead port 2/2 on $mux $procmux$914.
+    dead port 1/2 on $mux $procmux$1038.
+    dead port 2/2 on $mux $procmux$1038.
+    dead port 1/2 on $mux $procmux$1046.
+    dead port 2/2 on $mux $procmux$1046.
+Running muxtree optimizer on module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \regfile..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 74 multiplexer ports.
+<suppressed ~81 debug messages>
+
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \soc_top.
+    Consolidated identical input bits for $mux cell $procmux$764:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$764_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$764_Y [0]
+      New connections: $procmux$764_Y [31:1] = { $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] $procmux$764_Y [0] }
+  Optimizing cells in module \soc_top.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+  Optimizing cells in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module \pe.
+  Optimizing cells in module \rv32im_core.
+  Optimizing cells in module \regfile.
+    Consolidated identical input bits for $mux cell $procmux$1181:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$1181_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$1181_Y [0]
+      New connections: $procmux$1181_Y [31:1] = { $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] $procmux$1181_Y [0] }
+  Optimizing cells in module \regfile.
+Performed a total of 2 changes.
+
+10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\soc_top'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010'.
+Finding identical cells in module `$paramod\accel_top\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\pe'.
+Finding identical cells in module `\rv32im_core'.
+Finding identical cells in module `\regfile'.
+Removed a total of 0 cells.
+
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$1209 ($dff) from module soc_top (D = $2\mem_word[7:0], Q = \mem_word [7:0]).
+Adding EN signal on $procdff$1209 ($dff) from module soc_top (D = $3\mem_word[15:8], Q = \mem_word [15:8]).
+Adding EN signal on $procdff$1209 ($dff) from module soc_top (D = $4\mem_word[23:16], Q = \mem_word [23:16]).
+Adding EN signal on $procdff$1209 ($dff) from module soc_top (D = $5\mem_word[31:24], Q = \mem_word [31:24]).
+Adding EN signal on $procdff$1203 ($adff) from module soc_top (D = \dmem_wdata, Q = \gpio_r).
+Adding EN signal on $procdff$1198 ($adff) from module soc_top (D = \dmem_wdata, Q = \sim_code).
+Adding EN signal on $procdff$1193 ($adff) from module soc_top (D = 1'1, Q = \sim_done).
+Adding EN signal on $procdff$1222 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010 (D = { 1'1 \data 1'0 }, Q = \shreg).
+Adding EN signal on $procdff$1227 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010 (D = $procmux$815_Y, Q = \bitcnt).
+Adding EN signal on $procdff$1217 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010 (D = $procmux$831_Y, Q = \tx).
+Adding EN signal on $procdff$1232 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010 (D = $procmux$804_Y, Q = \cnt).
+Setting constant 1-bit at position 9 on $auto$ff.cc:266:slice$1377 ($adffe) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+Adding EN signal on $procdff$1247 ($adff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100 (D = $procmux$897_Y, Q = \t).
+Adding EN signal on $procdff$1242 ($adff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100 (D = $procmux$904_Y, Q = \state).
+Adding EN signal on $procdff$1252 ($adff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100 (D = $procmux$888_Y, Q = \done).
+Setting constant 0-bit at position 0 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 1 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 2 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 3 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 4 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 5 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 6 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 7 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 8 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 9 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 10 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 11 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 12 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 13 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 14 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 15 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 16 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 17 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 18 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 19 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 20 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 21 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 22 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 23 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 24 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 25 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 26 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 27 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 28 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 29 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 30 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 0-bit at position 31 on $procdff$1255 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 0 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 1 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 2 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 3 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 4 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 5 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 6 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 7 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 8 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 9 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 10 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 11 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 12 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 13 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 14 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 15 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 16 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 17 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 18 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 19 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 20 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 21 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 22 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 23 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 24 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 25 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 26 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 27 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 28 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 29 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 30 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 31 on $procdff$1263 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 0 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 1 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 2 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 3 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 4 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 5 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 6 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 7 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 8 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 9 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 10 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 11 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 12 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 13 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 14 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 15 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 16 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 17 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 18 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 19 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 20 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 21 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 22 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 23 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 24 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 25 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 26 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 27 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 28 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 29 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 30 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 31 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 32 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 33 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 34 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 35 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 36 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 37 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 38 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 39 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 40 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 41 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 42 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 43 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 44 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 45 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 46 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 47 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 48 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 49 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 50 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 51 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 52 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 53 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 54 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 55 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 56 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 57 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 58 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 59 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 60 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 61 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 62 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 63 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 64 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 65 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 66 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 67 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 68 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 69 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 70 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 71 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 72 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 73 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 74 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 75 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 76 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 77 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 78 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 79 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 80 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 81 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 82 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 83 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 84 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 85 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 86 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 87 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 88 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 89 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 90 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 91 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 92 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 93 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 94 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 95 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 96 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 97 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 98 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 99 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 100 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 101 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 102 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 103 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 104 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 105 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 106 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 107 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 108 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 109 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 110 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 111 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 112 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 113 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 114 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 115 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 116 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 117 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 118 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 119 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 120 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 121 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 122 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 123 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 124 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 125 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 126 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Setting constant 1-bit at position 127 on $procdff$1265 ($dff) from module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Adding EN signal on $procdff$1280 ($adff) from module pe (D = $procmux$1063_Y, Q = \acc).
+Adding EN signal on $procdff$1359 ($adff) from module rv32im_core (D = $procmux$1168_Y, Q = \id_instr).
+Adding SRST signal on $procdff$1339 ($dff) from module rv32im_core (D = \funct3, Q = \ex_alu_f3, rval = 3'000).
+Adding SRST signal on $procdff$1347 ($dff) from module rv32im_core (D = $logic_and$rtl/rv32im_core.v:68$40_Y, Q = \ex_muldiv, rval = 1'0).
+Adding SRST signal on $procdff$1340 ($dff) from module rv32im_core (D = \id_instr [30], Q = \ex_alt, rval = 1'0).
+Adding SRST signal on $procdff$1341 ($dff) from module rv32im_core (D = $logic_and$rtl/rv32im_core.v:84$49_Y, Q = \ex_we, rval = 1'0).
+Adding SRST signal on $procdff$1342 ($dff) from module rv32im_core (D = $eq$rtl/rv32im_core.v:64$35_Y, Q = \ex_load, rval = 1'0).
+Adding EN signal on $procdff$1354 ($adff) from module rv32im_core (D = $procmux$1173_Y, Q = \id_pc).
+Adding SRST signal on $procdff$1343 ($dff) from module rv32im_core (D = $eq$rtl/rv32im_core.v:65$36_Y, Q = \ex_store, rval = 1'0).
+Adding SRST signal on $procdff$1348 ($dff) from module rv32im_core (D = $not$rtl/rv32im_core.v:86$53_Y, Q = \ex_b_imm, rval = 1'0).
+Adding SRST signal on $procdff$1338 ($dff) from module rv32im_core (D = \id_instr [14:12], Q = \ex_f3, rval = 3'000).
+Adding SRST signal on $procdff$1344 ($dff) from module rv32im_core (D = $eq$rtl/rv32im_core.v:63$34_Y, Q = \ex_branch, rval = 1'0).
+Adding SRST signal on $procdff$1345 ($dff) from module rv32im_core (D = $eq$rtl/rv32im_core.v:61$32_Y, Q = \ex_jal, rval = 1'0).
+Adding SRST signal on $procdff$1349 ($dff) from module rv32im_core (D = $ternary$rtl/rv32im_core.v:85$50_Y [1], Q = \ex_a_sel [1], rval = 1'0).
+Adding SRST signal on $procdff$1349 ($dff) from module rv32im_core (D = $ternary$rtl/rv32im_core.v:85$51_Y [0], Q = \ex_a_sel [0], rval = 1'0).
+Adding SRST signal on $procdff$1331 ($dff) from module rv32im_core (D = \id_pc, Q = \ex_pc, rval = 0).
+Adding SRST signal on $procdff$1332 ($dff) from module rv32im_core (D = \rf_rdata1, Q = \ex_rs1v, rval = 0).
+Adding SRST signal on $procdff$1333 ($dff) from module rv32im_core (D = \rf_rdata2, Q = \ex_rs2v, rval = 0).
+Adding SRST signal on $procdff$1334 ($dff) from module rv32im_core (D = \imm, Q = \ex_imm, rval = 0).
+Adding EN signal on $procdff$1364 ($adff) from module rv32im_core (D = $procmux$1178_Y, Q = \pc).
+Adding SRST signal on $procdff$1335 ($dff) from module rv32im_core (D = \id_instr [11:7], Q = \ex_rd, rval = 5'00000).
+Adding SRST signal on $procdff$1346 ($dff) from module rv32im_core (D = $eq$rtl/rv32im_core.v:62$33_Y, Q = \ex_jalr, rval = 1'0).
+Adding SRST signal on $procdff$1336 ($dff) from module rv32im_core (D = \id_instr [19:15], Q = \ex_rs1, rval = 5'00000).
+Adding SRST signal on $procdff$1337 ($dff) from module rv32im_core (D = \id_instr [24:20], Q = \ex_rs2, rval = 5'00000).
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \soc_top..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+Finding unused cells or wires in module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \pe..
+Finding unused cells or wires in module \rv32im_core..
+Finding unused cells or wires in module \regfile..
+Removed 51 unused cells and 629 unused wires.
+<suppressed ~77 debug messages>
+
+10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+<suppressed ~2 debug messages>
+Optimizing module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+<suppressed ~2 debug messages>
+Optimizing module pe.
+<suppressed ~1 debug messages>
+Optimizing module regfile.
+Optimizing module rv32im_core.
+Optimizing module soc_top.
+
+10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \regfile..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~53 debug messages>
+
+10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+  Optimizing cells in module \pe.
+  Optimizing cells in module \regfile.
+  Optimizing cells in module \rv32im_core.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\accel_top\N=s32'00000000000000000000000000000100'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\pe'.
+Finding identical cells in module `\regfile'.
+Finding identical cells in module `\rv32im_core'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 6 cells.
+
+10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+Finding unused cells or wires in module \pe..
+Finding unused cells or wires in module \regfile..
+Finding unused cells or wires in module \rv32im_core..
+Finding unused cells or wires in module \soc_top..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~3 debug messages>
+
+10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+Optimizing module pe.
+Optimizing module regfile.
+Optimizing module rv32im_core.
+Optimizing module soc_top.
+
+10.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \regfile..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \rv32im_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~53 debug messages>
+
+10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+  Optimizing cells in module \pe.
+  Optimizing cells in module \regfile.
+  Optimizing cells in module \rv32im_core.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+10.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\accel_top\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\systolic_array\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010'.
+Finding identical cells in module `\pe'.
+Finding identical cells in module `\regfile'.
+Finding identical cells in module `\rv32im_core'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+10.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\accel_top\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\systolic_array\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010..
+Finding unused cells or wires in module \pe..
+Finding unused cells or wires in module \regfile..
+Finding unused cells or wires in module \rv32im_core..
+Finding unused cells or wires in module \soc_top..
+
+10.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\accel_top\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\systolic_array\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000110110010.
+Optimizing module pe.
+Optimizing module regfile.
+Optimizing module rv32im_core.
+Optimizing module soc_top.
+
+10.23. Finished OPT passes. (There is nothing left to do.)
+
+11. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+
+  attribute \src "rtl/soc_top.v:40.16-40.19"
+  cell $mem_v2 \mem
+    parameter \INIT 524288'x
+    parameter \WR_WIDE_CONTINUATION 1'0
+    parameter \WR_PRIORITY_MASK 1'0
+    parameter \WR_CLK_POLARITY 1'1
+    parameter \WR_CLK_ENABLE 1'1
+    parameter \WR_PORTS 1
+    parameter \RD_INIT_VALUE 64'x
+    parameter \RD_SRST_VALUE 64'x
+    parameter \RD_ARST_VALUE 64'x
+    parameter \RD_CE_OVER_SRST 2'00
+    parameter \RD_WIDE_CONTINUATION 2'00
+    parameter \RD_COLLISION_X_MASK 2'00
+    parameter \RD_TRANSPARENCY_MASK 2'00
+    parameter \RD_CLK_POLARITY 2'00
+    parameter \RD_CLK_ENABLE 2'00
+    parameter \RD_PORTS 2
+    parameter \ABITS 14
+    parameter \SIZE 16384
+    parameter \OFFSET 0
+    parameter \WIDTH 32
+    parameter \MEMID "\\mem"
+    connect \WR_DATA $0$memwr$\mem$rtl/soc_top.v:59$409_DATA[31:0]$419
+    connect \WR_ADDR $0$memwr$\mem$rtl/soc_top.v:59$409_ADDR[13:0]$418
+    connect \WR_EN { $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] $0$memwr$\mem$rtl/soc_top.v:59$409_EN[31:0]$420 [31] }
+    connect \WR_CLK \clk
+    connect \RD_DATA { \imem_rdata \mem_rd_word }
+    connect \RD_ADDR { \imem_addr [15:2] \dmem_addr [15:2] }
+    connect \RD_SRST 2'00
+    connect \RD_ARST 2'00
+    connect \RD_EN 2'11
+    connect \RD_CLK 2'x
+  end
+
+End of script. Logfile hash: 8a193fbcbc, CPU: user 0.73s system 0.07s, MEM: 23.64 MB peak
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+Time spent: 20% 3x opt_dff (0 sec), 18% 5x opt_expr (0 sec), ...

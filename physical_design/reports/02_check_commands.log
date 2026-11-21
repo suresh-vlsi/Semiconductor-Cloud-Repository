@@ -1,0 +1,30 @@
+OpenROAD unknown
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+
+========== FLOORPLAN COMMAND ==========
+initialize_floorplan [-utilization util] [-aspect_ratio ratio]
+   [-core_space space | {bottom top left right}]
+   [-die_area {lx ly ux uy | x1 y1 x2 y2 ...}]
+   [-core_area {lx ly ux uy | x1 y1 x2 y2 ...}] [-additional_sites site_names]
+   [-site site_name] [-row_parity NONE|ODD|EVEN] [-flip_sites site_names]
+   [-gap space]
+
+========== MACRO PLACEMENT COMMAND ==========
+place_macro -macro_name macro_name -location location [-orientation orientation]
+   [-exact] [-allow_overlap] [-snap_to_site_grid]
+
+
+========== GLOBAL POWER CONNECTION ==========
+add_global_connection [-net net_name] [-inst_pattern inst_name_pattern]
+   [-pin_pattern pin_name_pattern] [(-power|-ground)] [-region region_name]
+   [-defer_connection]
+
+
+========== DATABASE ACCESS ==========
+[WARNING STA-0160] no commands match 'get_db'.
+
+========== PLACEMENT CHECK ==========
+check_placement [-verbose] [-disallow_one_site_gaps] [-fixed] [-placeable]
+   [-report_file_name file_name]
