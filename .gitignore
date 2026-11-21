@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Simulation outputs
+simulation_logs/*.vvp
+simulation_logs/*.vcd
+simulation_logs/*.log
+*.vvp
+*.vcd
+
+# Generated program images
+testbench/programs/*.hex
+
+# Temporary debug testbench
+testbench/*debug*.v
+
+# OpenLane generated runs
+openlane/*/runs/
+openlane/*/results/
+openlane/*/reports/
+openlane/*/logs/
+
+# Tool-generated files
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
