@@ -1,0 +1,41 @@
+======================================
+ SKY130 64 KiB SRAM TEST
+======================================
+PASS DATA addr=00000000 write=1 data=xxxxxxxx
+PASS DATA addr=00000800 write=1 data=xxxxxxxx
+PASS DATA addr=00001000 write=1 data=xxxxxxxx
+PASS DATA addr=0000f800 write=1 data=xxxxxxxx
+PASS DATA addr=00000000 write=0 data=11223344
+PASS DATA addr=00000800 write=0 data=55667788
+PASS DATA addr=00001000 write=0 data=99aabbcc
+PASS DATA addr=0000f800 write=0 data=ddeeff00
+PASS DATA addr=00000800 write=1 data=xxxxxxxx
+PASS DATA addr=00000800 write=0 data=55bb77dd
+PASS INSTRUCTION addr=00000000 data=11223344
+PASS INSTRUCTION addr=00000800 data=55bb77dd
+PASS INSTRUCTION addr=0000f800 data=ddeeff00
+TEST: simultaneous reads
+PASS INSTRUCTION addr=00000800 data=55bb77dd
+PASS DATA addr=00000000 write=0 data=11223344
+TEST: same-address read/write collision
+PASS COLLISION: instruction sees updated data
+TEST: consecutive data reads
+PASS DATA addr=00000000 write=0 data=11223344
+PASS DATA addr=00000800 write=0 data=cafebabe
+PASS DATA addr=00001000 write=0 data=99aabbcc
+TEST: consecutive instruction reads
+PASS INSTRUCTION addr=00000000 data=11223344
+PASS INSTRUCTION addr=00000800 data=cafebabe
+PASS INSTRUCTION addr=0000f800 data=ddeeff00
+TEST: final valid word address
+PASS DATA addr=0000fffc write=1 data=xxxxxxxx
+PASS DATA addr=0000fffc write=0 data=12345678
+PASS INSTRUCTION addr=0000fffc data=12345678
+TEST: invalid address rejection
+PASS: instruction address outside SRAM rejected
+PASS: misaligned instruction address rejected
+PASS: data address outside SRAM rejected
+--------------------------------------
+ALL TESTS PASSED: 28
+--------------------------------------
+tb/tb_sky130_sram_64kb.v:284: $finish called at 571000 (1ps)
